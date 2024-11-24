@@ -1,5 +1,5 @@
 # Blossom Essentials
-An open-source, feature rich MCBE Addon, provided by the Simple Essentials team.
+An open-source, feature rich MCBE Addon, provided by the [Simple Essentials](https://github.com/SimpleUtils) team.
 
 We are working on this addon, it may not have many features on release.
 ------------
