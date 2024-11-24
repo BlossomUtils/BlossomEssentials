@@ -1,0 +1,77 @@
+{
+  "$light_button_default_text_color": [ 0.8, 0.8, 0.8 ],
+  "$light_button_locked_text_color": [ 0.4, 0.4, 0.4 ],
+
+  "$light_glyph_default_color": [ 0.8, 0.8, 0.8 ],
+  "$light_glyph_locked_color": [ 0.4, 0.4, 0.4 ],
+
+  "$light_toggle_default_text_color": [ 0.8, 0.8, 0.8 ],
+  "$light_toggle_checked_default_text_color": [ 0.7, 0.7, 0.7 ],
+
+  "$dark_button_locked_text_color": [ 0.4, 0.4, 0.4 ],
+  "$dark_button_secondary_locked_text_color": [ 0.4, 0.4, 0.4 ],
+  "$dark_glyph_locked_color": [ 0.4, 0.4, 0.4 ],
+
+  "$light_border_default_color": [ 0.0, 0.0, 0.0 ],
+  "$light_border_locked_color": [ 0.0, 0.0, 0.0 ],
+  "$light_border_toggle_default_color": [ 0.0, 0.0, 0.0 ],
+
+  "$dark_border_default_color": [ 0.0, 0.0, 0.0 ],
+  "$dark_border_locked_color": [ 0.0, 0.0, 0.0 ],
+  "$dark_border_toggle_default_color": [ 0.0, 0.0, 0.0 ],
+ 
+  "$tab_checked_text_color": [ 1.0, 1.0, 1.0 ],
+  "$tab_checked_locked_text_color": [ 1.0, 1.0, 1.0 ],
+  "$tab_checked_locked_hover_text_color": [ 1.0, 1.0, 1.0 ],
+
+  "$tab_unchecked_text_color": [ 0.8, 0.8, 0.8 ],
+  "$tab_unchecked_locked_text_color": [ 0.8, 0.8, 0.8 ],
+  "$tab_unchecked_locked_hover_text_color": [ 0.8, 0.8, 0.8 ],
+
+  "$tab_unchecked_glyph_color": [ 0.8, 0.8, 0.8 ],
+  "$tab_unchecked_hover_glyph_color": [ 0.8, 0.8, 0.8 ],
+  "$tab_unchecked_locked_glyph_color": [ 0.8, 0.8, 0.8 ],
+  "$tab_unchecked_locked_hover_glyph_color": [ 0.8, 0.8, 0.8 ],
+  "$tab_checked_glyph_color": [ 0.8, 0.8, 0.8 ],
+  "$tab_checked_hover_glyph_color": [ 0.8, 0.8, 0.8 ],
+  "$tab_checked_locked_glyph_color": [ 0.8, 0.8, 0.8 ],
+  "$tab_checked_locked_hover_glyph_color": [ 0.8, 0.8, 0.8 ],
+
+  "$title_text_color": [ 0.8, 0.8, 0.8 ],
+  "$pocket_title_text_color": [ 0.8, 0.8, 0.8 ],
+ 
+  "$store_dark_grey_text_color": [ 0.8, 0.8, 0.8 ],
+
+  "$dark_body_text_color": [ 0.8, 0.8, 0.8 ],
+
+  "$smithing_table_cost_fail_text_color": [ 0.8, 0.8, 0.8 ],
+
+  "$trade_tier_name_locked_color": [ 0.4, 0.4, 0.4 ],
+  "$trade_lock_color": [ 0.4, 0.4, 0.4 ],
+ 
+  "$dressing_room_right_side_default_text_color": [ 0.8, 0.8, 0.8 ],
+  "$dressing_room_size_default_text_color": [ 0.8, 0.8, 0.8 ],
+  "$dressing_room_color_title": [ 0.8, 0.8, 0.8 ],
+  "$dressing_room_dark_button_color": [ 0.8, 0.8, 0.8 ],
+  "$dressing_room_background_alpha": 0.7,
+  "$dressing_room_panel_alpha": 0.3,
+
+  "$settings_background_alpha": 0.6,
+  "$0_color_format": [ 0.2, 0.2, 0.2 ], // Black
+  "$1_color_format": [ 0.0, 0.0, 0.667 ], // Dark Blue
+  "$2_color_format": [ 0.0, 0.667, 0 ], // Dark Green
+  "$3_color_format": [ 0.0, 0.667, 0.667 ], // Dark Aqua
+  "$4_color_format": [ 0.667, 0.0, 0.0 ], // Dark Red
+  "$5_color_format": [ 0.667, 0.0, 0.667 ], // Dark Purple
+  "$6_color_format": [ 1.0, 0.667, 0.0 ], // Gold
+  "$7_color_format": [ 0.776, 0.776, 0.776 ], // Gray
+  "$8_color_format": [ 0.333, 0.333, 0.333 ], // Dark Gray
+  "$9_color_format": [ 0.525, 0.4, 0.929 ], // Blue
+  "$a_color_format": [ 0.333, 1.0, 0.333 ], // Green
+  "$b_color_format": [ 0.333, 1.0, 1.0 ], // Aqua
+  "$c_color_format": [ 1.0, 0.333, 0.333 ], // Red
+  "$d_color_format": [ 1.0, 0.333, 1.0 ], // Light Purple
+  "$e_color_format": [ 1.0, 1.0, 0.333 ], // Yellow
+  "$f_color_format": [ 1.0, 1.0, 1.0 ],
+  "$n_color_format": [ 1.0, 1.0, 1.0 ]
+} 

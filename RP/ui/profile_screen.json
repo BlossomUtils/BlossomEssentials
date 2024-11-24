@@ -1,0 +1,74 @@
+{
+  "namespace": "profile",
+
+  "information_and_selection_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+
+    "$info_title_control_left|default": "profile.featured_title_panel",
+    "$info_title_control_right|default": "profile.featured_title_panel",
+    "$info_content_control_left|default": "common.empty_panel",
+    "$info_content_control_right|default": "common.empty_panel",
+
+    "$left_title_text|default": "",
+    "$right_title_text|default": "",
+
+    "controls": [
+      {
+        "horizontal_stack": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "title_content_panel": {
+                "type": "image",
+                "size": [ "100%", 14 ],
+                "layer": 4,
+                "alpha": "$dressing_room_panel_alpha",
+                "texture": "textures/ui/dressing_room_banner",
+                "color": "$rarity_common_bg_color",
+                "controls": [
+                  {
+                    "title_stack": {
+                      "type": "stack_panel",
+                      "orientation": "horizontal",
+                      "size": [ "100%", "100%" ],
+                      "controls": [
+                        {
+                          "left_title@$info_title_control_left": {
+                            "$title_text": "$left_title_text"
+                          }
+                        },
+                        {
+                          "right_title@$info_title_control_right": {
+                            "$title_text": "$right_title_text"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "bottom_section_content_panel": {
+                "type": "stack_panel",
+                "orientation": "horizontal",
+                "size": [ "100%", "100%cm" ],
+                "controls": [
+                  {
+                    "left_content_control@$info_content_control_left": {}
+                  },
+                  {
+                    "right_content_control@$info_content_control_right": {}
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

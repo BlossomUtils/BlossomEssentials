@@ -1,0 +1,71 @@
+{
+  "namespace": "anvil_pocket",
+
+  "slots_panel": {
+    "type": "panel",
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "controls": [
+      {
+        "input_slot@common.pocket_ui_large_container_item": {
+          "offset": [ 0, 0 ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "$item_collection_name": "anvil_input_items"
+        }
+      },
+      {
+        "material_slot@common.pocket_ui_large_container_item": {
+          "offset": [ 48, 0 ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "$item_collection_name": "anvil_material_items"
+        }
+      },
+      {
+        "result_slot@common.pocket_ui_large_container_item": {
+          "offset": [ 109, 0 ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "$item_collection_name": "anvil_result_items",
+          "$button_ref": "anvil.anvil_output_slot_button"
+        }
+      },
+      {
+        "plus_sign@anvil_pocket.generic_label": {
+          "text": "+",
+          "color": [0.082, 0.082, 0.082],
+          "offset": [ 38, 0 ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "layer": 1
+        }
+      },
+      {
+        "arrow": {
+          "type": "image",
+          "texture": "textures/ui/arrow_inactive",
+          "size": [ 22, 15 ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "offset": [ 83, 0 ],
+          "controls": [
+            {
+              "cross_out": {
+                "type": "image",
+                "layer": 1,
+                "texture": "textures/ui/crossout",
+                "bindings": [
+                  {
+                    "binding_name": "#cross_out_icon",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

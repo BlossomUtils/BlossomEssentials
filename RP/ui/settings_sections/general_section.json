@@ -1,0 +1,803 @@
+{
+  "namespace": "general_section",
+
+  "profile_section": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+	  "$spatialPatternsPadding": ["100%", 3],
+	  "$paddingLineDivider": ["100%", 9],
+    "$hide_login_button": "($win10_edition or not $is_xboxlive_enabled)",
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "profile_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "switch_accounts@general_section.switch_accounts_panel": {
+          "ignored": "$ignore_profile_switch_account_button"
+        }
+      },
+
+      { "paddingUseSSO": { "ignored": "$ignore_profile_sso_toggle", "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "use_sso@settings_common.option_toggle": {
+          "ignored": "$ignore_profile_sso_toggle",
+          "$option_label": "options.adUseSingleSignOn",
+          "$option_binding_name": "#ad_use_single_sign_on",
+          "$toggle_name": "ad_use_single_sign_on"
+        }
+      },
+
+      { "paddingNameControls": { "ignored": "$education_edition", "type": "panel", "size": "$spatialPatternsPadding", "bindings": [ { "binding_name": "#can_change_name", "binding_name_override": "#visible" } ] } },
+
+      {
+        "name_controls@settings_common.option_custom_control": {
+          "ignored": "$education_edition",
+          "$option_label": "options.name",
+          "$control_name": "general_section.name_controls",
+          "bindings": [
+            {
+              "binding_name": "#can_change_name",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+
+      { "paddingSignInControls": { "ignored": "$education_edition", "type": "panel", "size": "$spatialPatternsPadding", "bindings": [ { "binding_name": "#not_logged_in", "binding_name_override": "#visible" } ] } },
+
+      {
+        "signin_controls@settings_common.option_custom_control": {
+          "$control_name": "general_section.signin_controls",
+          "ignored": "$education_edition",
+          "bindings": [
+            {
+              "binding_name": "#not_logged_in",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+
+	    { "paddingGamerTagControls": { "type": "panel", "size": "$spatialPatternsPadding", "bindings": [ { "binding_name": "#logged_in", "binding_name_override": "#visible" } ] } },
+
+      {
+        "gamertag_controls@settings_common.option_custom_control": {
+          "$show_option_label": false,
+          "$control_name": "general_section.gamertag_controls",
+          "bindings": [
+            {
+              "binding_name": "#logged_in",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+
+      { "paddingAutoUpdate": { "ignored": "($is_console or $is_settopbox or $win10_edition or $osx_edition or $education_edition)", "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "auto_update_mode_dropdown@settings_common.option_dropdown": {
+          "ignored": "($is_console or $is_settopbox or $win10_edition or $osx_edition or $education_edition)",
+          "$option_label": "options.autoUpdateMode",
+          "$dropdown_content": "general_section.auto_update_mode_dropdown_content",
+          "$dropdown_area": "content_area",
+          "$dropdown_name": "auto_update_mode_dropdown",
+          "$options_dropdown_toggle_label_binding": "#auto_update_mode_dropdown_toggle_label",
+          "$dropdown_scroll_content_size": [ "100%", "200%" ]
+        }
+      },
+
+		  { "paddingAutoUpdateToggle": { "ignored": "((not $is_console and not $is_settopbox and not $win10_edition and not $osx_edition) or $nx_os)", "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "auto_update_enabled_toggle@settings_common.option_toggle": {
+          "ignored": "((not $is_console and not $is_settopbox and not $win10_edition and not $osx_edition) or $nx_os)",
+          "$option_label": "options.autoUpdateEnabled",
+          "$option_binding_name": "#auto_update_enabled",
+          "$toggle_name": "auto_update_enabled"
+        }
+      },
+
+		  { "paddingCrossPlatform": { "ignored": "(not $supports_cross_platform_play_toggle)", "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "cross_platform_enabled_toggle@settings_common.option_toggle": {
+          "ignored": "(not $supports_cross_platform_play_toggle)",
+          "$option_label": "options.crossPlatformPlay",
+          "$option_binding_name": "#crossplatform_toggle",
+          "$option_enabled_binding_name": "#crossplatform_toggle_enabled",
+          "$toggle_name": "crossplatform_toggle"
+        }
+      },
+
+		  { "paddingCellularData": { "ignored": "($is_console or $is_settopbox or $win10_edition or $osx_edition or $education_edition_china)", "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "option_toggle_0@settings_common.option_toggle": {
+          "ignored": "($is_console or $is_settopbox or $win10_edition or $osx_edition or $education_edition_china)",
+          "$option_label": "options.allowCellularData",
+          "$option_binding_name": "#allow_cellular_data",
+          "$option_enabled_binding_name": "#allow_cellular_data_enabled",
+          "$toggle_name": "allow_cellular_data"
+        }
+      },
+
+      { "paddingWebSockets": { "ignored": "($console_edition or $education_edition_china)", "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "option_toggle_1@settings_common.option_toggle": {
+          "$option_label": "options.websocketEncryption",
+          "$option_binding_name": "#websocket_encryption",
+          "$option_enabled_binding_name": "#websocket_encryption_enabled",
+          "$toggle_name": "websocket_encryption",
+          "ignored": "($console_edition or $education_edition_china)"
+        }
+      },
+
+      { "paddingTrustedSkins": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "only_allow_trusted_skins_toggle@settings_common.option_toggle": {
+          "$option_label": "options.onlyTrustedSkinsAllowed",
+          "$option_binding_name": "#only_trusted_skins_allowed",
+          "$option_enabled_binding_name": "#only_trusted_skins_allowed_enabled",
+          "$toggle_name": "only_trusted_skins_allowed"
+        }
+      },
+
+      { "paddingLinkEduSupport": { "ignored": "(not $education_edition or $education_edition_china or $is_holographic or $fire_tv)", "type": "panel", "size": "$spatialPatternsPadding" } },
+      
+      {
+        "link_button@settings_common.link_button": {
+          "ignored": "(not $education_edition or $education_edition_china or $is_holographic or $fire_tv)",
+          "$button_text": "options.goToFeedbackWebsite",
+          "property_bag": {
+            "#hyperlink": "https://aka.ms/minecraftedusupport"
+          }
+        }
+      },
+
+		  { "paddingFileStorageDropdown": { "ignored": "($is_holographic and $is_reality_mode)", "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "file_storage_dropdown@settings_common.option_dropdown": {
+          "$option_label": "options.filelocation.title",
+          "ignored": "($is_holographic and $is_reality_mode)",
+          "visible": "($storage_location_switch_enabled and not $gear_vr)",
+          "$dropdown_content": "general_section.file_storage_location_content",
+          "$dropdown_area": "content_area",
+          "$dropdown_name": "file_storage_location",
+          "$option_enabled_binding_name": "#file_storage_location_enabled",
+          "$options_dropdown_toggle_label_binding": "#file_storage_location_toggle_label",
+          "$dropdown_scroll_content_size": [ "100%", "200%" ]
+        }
+      },
+
+		  { "paddingClearMSAToken": { "ignored": "($education_edition or not $is_pregame or not ($thirdpartyconsole or $is_android or $is_ios))", "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "clear_msa_token": {
+          "ignored": "($education_edition or not $is_pregame or not ($thirdpartyconsole or $is_android or $is_ios))",
+          "type": "panel",
+          "size": [ "100%", 32 ],
+          "controls": [
+            {
+              "clear_msa_token_button@settings_common.action_button": {
+                "$pressed_button_name": "button.clear_msa_token_button",
+                "$button_text": "xbox.dev_wrongSandboxSigninFailed.button.clearXbl",
+                "anchor_from": "top_right",
+                "anchor_to": "top_right",
+                "offset": [ 0, 2 ],
+                "bindings": [
+                  {
+                    "binding_name": "#not_logged_in",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+
+		  { "paddingDividerTermsCreditsAttribution": { "type": "panel", "size": "$paddingLineDivider" } },
+
+      {
+        "dividerTermsCreditsAttribution": {
+          "type": "panel",
+          "size": [ "100%", "100%c + 14px" ],
+          "controls": [
+            {
+              "section_divider": {
+                "type": "image",
+                "size": [ "100% - 30px", 1 ],
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "layer": 3,
+                "texture": "textures/ui/list_item_divider_line_light"
+              }
+            }
+          ]
+        }
+      },
+
+      { "paddingDividerTermsCreditsAttributionAfter": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      { "paddingTermsNConditions": { "ignored": "($is_holographic or $fire_tv or not $thirdpartyconsole)", "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "terms_and_conditions_link_button@settings_common.link_button": {
+          "ignored": "($is_holographic or $fire_tv or not $thirdpartyconsole)",
+          "$button_text": "options.termsAndConditions",
+          "bindings": [
+            {
+              "binding_name": "#terms_and_conditions_hyperlink",
+              "binding_name_override": "#hyperlink",
+              "binding_type": "global"
+            }
+          ]
+        }
+      },
+
+	    { "paddingTermsNConditionsPopUp": { "ignored": "((not $is_holographic and not $fire_tv) or not $thirdpartyconsole)", "type": "panel", "size": "$spatialPatternsPadding" } },
+
+	    {
+        "terms_and_conditions_content_popup_button@settings_common.action_button": {
+          "ignored": "((not $is_holographic and not $fire_tv) or not $thirdpartyconsole)",
+          "$pressed_button_name": "button.terms_and_conditions_popup",
+          "$button_text": "options.termsAndConditions"
+        }
+      },
+
+      { "paddingCreditsButton": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "credits_button@settings_common.action_button": {
+          "$pressed_button_name": "button.credits",
+          "$button_text": "options.credits"
+        }
+      },
+
+      { "paddingUnlinkMSAAccount": { "ignored": "((not $is_pregame) or (not $is_ps4))", "type": "panel", "size": "$spatialPatternsPadding" } },
+
+	    {
+        "unlink_msa_account@settings_common.action_button": {
+          "ignored": "((not $is_pregame) or (not $is_ps4))",
+          "$pressed_button_name": "button.unlink_msa",
+          "$button_text": "options.unlink_msa.button",
+          "bindings": [
+            {
+              "binding_name": "#logged_in",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+
+      { "paddingAttribution": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "attribution_link_button@settings_common.link_button": {
+          "ignored": "($is_holographic or $fire_tv or $education_edition_china)",
+          "$button_text": "options.attribution",
+          "variables": [
+            {
+              "requires": "(not $nx_os)",
+              "$attribution_button_url": "https://www.minecraft.net/attribution/?hideChrome"
+            },
+            {
+              "requires": "($nx_os)",
+              "$attribution_button_url": "https://aka.ms/switchattribution"
+            }
+          ],
+          "property_bag": {
+            "#hyperlink": "$attribution_button_url"
+          }
+        }
+      },
+      {
+        "attribution_popup_button@settings_common.action_button": {
+          "ignored": "(not $is_holographic and not $fire_tv)",
+          "$pressed_button_name": "button.attribution_popup",
+          "$button_text": "options.attribution"
+        }
+      },
+
+      { "paddingLicenses": { "type": "panel", "size": "$paddingLineDivider" } },
+
+      {
+        "dividerLicenses": {
+          "type": "panel",
+          "size": [ "100%", "100%c + 14px" ],
+          "controls": [
+            {
+              "section_divider": {
+                "type": "image",
+                "size": [ "100% - 30px", 1 ],
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "layer": 3,
+                "texture": "textures/ui/list_item_divider_line_light"
+              }
+            }
+          ]
+        }
+      },
+
+		  { "paddingLicensesAfter": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+		  { "paddingLicensesHeader": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+		  {
+		    "licenses_label_header": {
+			    "type": "label",
+			    "text": "options.licenses",
+			    "color": "$sub_header_text_color"
+		    }
+		  },
+
+      { "paddingLicensedContent": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "licensed_content_link_button@settings_common.link_button": {
+          "ignored": "($is_holographic or $fire_tv or $education_edition)",
+          "$button_text": "options.licensed_content",
+          "variables": [
+            {
+              "requires": "(not $nx_os)",
+              "$licensed_content_button_url": "https://www.minecraft.net/licensed-content/?hideChrome"
+            },
+            {
+              "requires": "($nx_os)",
+              "$licensed_content_button_url": "https://aka.ms/switchcontent"
+            }
+          ],
+          "property_bag": {
+            "#hyperlink": "$licensed_content_button_url"
+          }
+        }
+      },
+      {
+        "licensed_content_popup_button@settings_common.action_button": {
+          "ignored": "(not $is_holographic and not $fire_tv)",
+          "$pressed_button_name": "button.licensed_content_popup",
+          "$button_text": "options.licensed_content",
+          "$focus_override_down": "FOCUS_OVERRIDE_STOP"
+        }
+      },
+
+      { "paddingFontLicense": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "font_license_popup_button@settings_common.action_button": {
+          "$pressed_button_name": "button.font_license_popup",
+          "$button_text": "options.font_license",
+          "$focus_override_down": "FOCUS_OVERRIDE_STOP"
+        }
+      },
+      {
+        "third_party_copyright_info_label_panel": {
+          "ignored": "(not $display_copyright_info)",
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "spacer_0": {
+                "type": "panel",
+                "size": [ "100%", 4 ]
+              }
+            },
+            {
+              "copyright_label": {
+                "type": "label",
+                "color": "$body_text_color",
+                "text": "thirdPartyConsole.copyright"
+              }
+            },
+            {
+              "spacer_1": {
+                "type": "panel",
+                "size": [ "100%", 4 ]
+              }
+            },
+            {
+              "copyright_icon": {
+                "type": "image",
+                "size": [ 117, 41 ],
+                "texture": "textures/ui/third_party_copyright"
+              }
+            }
+          ]
+        }
+      },
+
+		  { "paddingSectionDividerContentLog": { "type": "panel", "size": "$paddingLineDivider" } },
+
+      {
+        "build_info_label_panel": {
+          "type": "stack_panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "build_id_label": {
+                "type": "label",
+                "color": "$body_text_color",
+                "offset": [ 2, 0 ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "text": "#build_id",
+                "bindings": [
+                  {
+                    "binding_name": "#build_id"
+                  }
+                ]
+              }
+            },
+
+			      { "paddingVersionLabel": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+            {
+              "protocol_version_label": {
+                "type": "label",
+                "color": "$body_text_color",
+                "offset": [ 2, 0 ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "text": "#protocol_version",
+                "bindings": [
+                  {
+                    "binding_name": "#protocol_version"
+                  }
+                ]
+              }
+            },
+            {
+              "device_id_label": {
+                "type": "label",
+                "size": [ "100%", "default" ],
+                "color": "$body_text_color",
+                "offset": [ 2, 0 ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "text": "#device_id",
+                "bindings": [
+                  {
+                    "binding_name": "#device_id"
+                  }
+                ]
+              }
+            },
+            {
+              "MinecraftAccount_id_label": {
+                "type": "label",
+                "color": "$body_text_color",
+                "offset": [ 2, 0 ],
+                "size": [ "100%", "default" ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "text": "#MinecraftAccount_id",
+                "bindings": [
+                  {
+                    "binding_name": "#MinecraftAccount_id"
+                  }
+                ]
+              }
+            },
+            {
+              "commerce_id_label": {
+                "type": "label",
+                "color": "$body_text_color",
+                "offset": [ 2, 0 ],
+                "size": [ "100%", "default" ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "text": "#commerce_id",
+                "bindings": [
+                  {
+                    "binding_name": "#commerce_id"
+                  }
+                ]
+              }
+            },
+            {
+              "build_date_label": {
+                "type": "label",
+                "color": "$body_text_color",
+                "offset": [ 2, 0 ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "text": "#build_date",
+                "bindings": [
+                  {
+                    "binding_name": "#build_date"
+                  }
+                ]
+              }
+            },
+            {
+              "world_converter_label": {
+                "type": "label",
+                "color": "$body_text_color",
+                "offset": [ 2, 0 ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "text": "#world_conversion_version",
+                "bindings": [
+                  {
+                    "binding_name": "#world_conversion_version"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  
+  "sound_section": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+	  "$spatialPatternsPadding": ["100%", 8],
+	  "$audioSlidersSize": [ "100% - 2px", 23 ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "sound_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+
+      { "paddingMainVolume": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+	    {
+        "option_slider_0@settings_common.option_slider": {
+			    "size": "$audioSlidersSize",
+          "$option_label": "#main_volume_slider_label",
+          "$slider_name": "main_volume",
+          "$slider_value_binding_name": "#main_volume",
+          "$slider_tts_text_value": "#main_volume_text_value",
+          "$option_enabled_binding_name": "#main_volume_enabled",
+          "$focus_override_up": "FOCUS_OVERRIDE_STOP",
+          "$label_bindings": [
+            {
+              "binding_name": "$option_label"
+            }
+          ]
+        }
+      },
+
+		  { "paddingDividerAudioSettings": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "dividerAudioSettings": {
+          "type": "panel",
+          "size": [ "100%", "100%c + 14px" ],
+          "controls": [
+            {
+              "section_divider": {
+                "type": "image",
+                "size": [ "100% - 30px", 1 ],
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "layer": 3,
+                "texture": "textures/ui/list_item_divider_line_light"
+              }
+            }
+          ]
+        }
+      },
+
+      { "paddingMusic": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "option_slider_1@settings_common.option_slider": {
+			    "size": "$audioSlidersSize",
+          "$option_label": "#music_volume_slider_label",
+          "$slider_name": "music_volume",
+          "$slider_value_binding_name": "#music_volume",
+          "$slider_tts_text_value": "#music_volume_text_value",
+          "$option_enabled_binding_name": "#music_volume_enabled",
+          "$label_bindings": [
+            {
+              "binding_name": "$option_label"
+            }
+          ]
+        }
+      },
+
+      { "paddingSound": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "option_slider_2@settings_common.option_slider": {
+			    "size": "$audioSlidersSize",
+          "$option_label": "#sound_volume_slider_label",
+          "$slider_name": "sound_volume",
+          "$slider_value_binding_name": "#sound_volume",
+          "$slider_tts_text_value": "#sound_volume_text_value",
+          "$option_enabled_binding_name": "#sound_volume_enabled",
+          "$label_bindings": [
+            {
+              "binding_name": "$option_label"
+            }
+          ]
+        }
+      },
+
+      { "paddingAmbient": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "option_slider_3@settings_common.option_slider": {
+			    "size": "$audioSlidersSize",
+          "$option_label": "#ambient_volume_slider_label",
+          "$slider_name": "ambient_volume",
+          "$slider_value_binding_name": "#ambient_volume",
+          "$slider_tts_text_value": "#ambient_volume_text_value",
+          "$option_enabled_binding_name": "#ambient_volume_enabled",
+          "$label_bindings": [
+            {
+              "binding_name": "$option_label"
+            }
+          ]
+        }
+      },
+
+      { "paddingBlockVolume": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "option_slider_4@settings_common.option_slider": {
+			    "size": "$audioSlidersSize",
+          "$option_label": "#block_volume_slider_label",
+          "$slider_name": "block_volume",
+          "$slider_value_binding_name": "#block_volume",
+          "$slider_tts_text_value": "#block_volume_text_value",
+          "$option_enabled_binding_name": "#block_volume_enabled",
+          "$label_bindings": [
+            {
+              "binding_name": "$option_label"
+            }
+          ]
+        }
+      },
+
+      { "paddingHostile": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "option_slider_5@settings_common.option_slider": {
+			    "size": "$audioSlidersSize",
+          "$option_label": "#hostile_volume_slider_label",
+          "$slider_name": "hostile_volume",
+          "$slider_value_binding_name": "#hostile_volume",
+          "$slider_tts_text_value": "#hostile_volume_text_value",
+          "$option_enabled_binding_name": "#hostile_volume_enabled",
+          "$label_bindings": [
+            {
+              "binding_name": "$option_label"
+            }
+          ]
+        }
+      },
+
+      { "paddingNeutralVolume": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "option_slider_6@settings_common.option_slider": {
+			    "size": "$audioSlidersSize",
+          "$option_label": "#neutral_volume_slider_label",
+          "$slider_name": "neutral_volume",
+          "$slider_value_binding_name": "#neutral_volume",
+          "$slider_tts_text_value": "#neutral_volume_text_value",
+          "$option_enabled_binding_name": "#neutral_volume_enabled",
+          "$label_bindings": [
+            {
+              "binding_name": "$option_label"
+            }
+          ]
+        }
+      },
+
+      { "paddingPlayervolume": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "option_slider_7@settings_common.option_slider": {
+			    "size": "$audioSlidersSize",
+          "$option_label": "#player_volume_slider_label",
+          "$slider_name": "player_volume",
+          "$slider_value_binding_name": "#player_volume",
+          "$slider_tts_text_value": "#player_volume_text_value",
+          "$option_enabled_binding_name": "#player_volume_enabled",
+          "$label_bindings": [
+            {
+              "binding_name": "$option_label"
+            }
+          ]
+
+        }
+      },
+
+      { "paddingRecordVolume": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "option_slider_8@settings_common.option_slider": {
+			    "size": "$audioSlidersSize",
+          "$option_label": "#record_volume_slider_label",
+          "$slider_name": "record_volume",
+          "$slider_value_binding_name": "#record_volume",
+          "$slider_tts_text_value": "#record_volume_text_value",
+          "$option_enabled_binding_name": "#record_volume_enabled",
+          "$label_bindings": [
+            {
+              "binding_name": "$option_label"
+            }
+          ]
+        }
+      },
+
+      { "paddingWeatherVolume": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "option_slider_9@settings_common.option_slider": {
+			    "size": "$audioSlidersSize",
+          "$option_label": "#weather_volume_slider_label",
+          "$slider_name": "weather_volume",
+          "$slider_value_binding_name": "#weather_volume",
+          "$slider_tts_text_value": "#weather_volume_text_value",
+          "$option_enabled_binding_name": "#weather_volume_enabled",
+          "$label_bindings": [
+            {
+              "binding_name": "$option_label"
+            }
+          ]
+        }
+      },
+
+      { "paddingTTSVolume": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "option_slider_10@settings_common.option_slider": {
+			    "size": "$audioSlidersSize",
+          "$option_label": "#texttospeech_volume_slider_label",
+          "$slider_name": "texttospeech_volume",
+          "$slider_value_binding_name": "#texttospeech_volume",
+          "$slider_tts_text_value": "#texttospeech_volume_text_value",
+          "$option_enabled_binding_name": "#texttospeech_volume_enabled",
+          "$label_bindings": [
+            {
+              "binding_name": "$option_label"
+            }
+          ]
+        }
+      },
+
+      { "paddingResetVolumes": { "type": "panel", "size": "$spatialPatternsPadding" } },
+
+      {
+        "reset_button@settings_common.action_button": {
+          "ignored": "(not $is_pregame)",
+          "$pressed_button_name": "button.reset_settings",
+          "$button_text": "options.resetSettings",
+          "$focus_override_down": "FOCUS_OVERRIDE_STOP",
+          "property_bag": {
+            "reset_group": "audio"
+          }
+        }
+      },
+
+		  { "paddingEndOfList": { "type": "panel", "size": ["100%", 0] } }
+
+    ]
+  }
+}

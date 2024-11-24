@@ -1,0 +1,118 @@
+{
+  "namespace": "settings_common",
+  "option_toggle_on_light@settings_common.option_toggle_state_template": {
+    "texture": "textures/ui/toggle_on2"
+  },
+
+  "option_toggle_off@settings_common.option_toggle_state_template": {
+    "texture": "textures/ui/toggle_off2"
+  },
+  "dialog_titles": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100%", 15 ],
+    "offset": [ 2, 3.5 ],
+    "controls": [
+      {
+        "left_padding": {
+          "type": "panel",
+          "size": [ 18, "100%" ]
+        }
+      },
+      {
+        "dialog_title_label@settings_common.dialog_title_label": {
+          "size": [ "40% - 3px", "100%" ]
+        }
+      },
+      {
+        "center_padding": {
+          "type": "panel",
+          "size": [ 9, "100%" ]
+        }
+      },
+      {
+        "section_title_label@settings_common.section_title_label": {
+          "size": [ "fill", "100%" ]
+        }
+      },
+      {
+        "right_padding_is_always_right": {
+          "type": "panel",
+          "size": [ 22, "100%" ]
+        }
+      }
+    ]
+  },
+
+  "settings_content": {
+    "type": "panel",
+    "controls": [
+		{
+      "background": {
+        "$layer|default": -1,
+        "variables": [
+          {
+            "requires": "($is_realm_slot or $realm_no_world_edit)",
+            "$layer": -2
+          }
+        ],
+        "type": "image",
+        "texture": "textures/ui/White",
+        "keep_ratio": false,
+        "size": [ "100%", "100%sm" ],
+        "color": [ 0.1, 0.1, 0.1],
+        "alpha": "$settings_background_alpha",
+        "offset": [ 0, 0 ],
+        "layer": "$layer",
+        "anchor_from": "top_left",
+        "anchor_to": "top_left"
+      }
+		},
+    {
+      "stack_panel": {
+        "type": "stack_panel",
+        "size": [ "100%", "100%" ],
+        "controls": [
+          {
+            "content_panel": {
+              "type": "panel",
+              "size": [ "100%", "fill" ],
+
+              "controls": [
+                {
+                  "common_panel@common.fullscreen_header": {
+                    "$dialog_background": "dialog_background_hollow_3"
+                  }
+                },
+                {
+                  "container": {
+                    "type": "panel",
+                    "size": [ "100%", "100% - 4px" ],
+                    "controls": [
+                      { "$dialog_content@$dialog_content": {} }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "popup_dialog_factory": {
+        "type": "factory",
+        "control_ids": {
+          "purchase_failed": "@realms_create.popup_dialog__purchase_failed",
+          "purchase_in_progress": "@realms_create.popup_dialog__purchase_in_progress",
+          "share_by_link": "@realms_allowlist.popup_dialog__share_by_link",
+          "options_modal": "@realms_allowlist.popup_dialog__options",
+          "backups_modal": "@realms_settings.popup_dialog__backups"
+        }
+      }
+    }
+    ]
+  }
+}

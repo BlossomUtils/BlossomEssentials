@@ -1,0 +1,6 @@
+{
+    "dialog_background_hollow_3_light@common_dialogs.dialog_background_hollow_common": {
+        "size": [ "100%", "100%c + 31px" ],
+        "texture": "textures/ui/dialog_background_hollow_3_light"
+    }
+}

@@ -1,0 +1,10 @@
+{
+	"ui_defs": [
+		"ui/chest_server_form.json",
+		"ui/server_form_grid.json",
+		"ui/server_form_fullscreen.json",
+		"ui/server_form_light.json",
+		"ui/server_form_test.json",
+		"ui/server_form_tabs.json"
+	]
+}

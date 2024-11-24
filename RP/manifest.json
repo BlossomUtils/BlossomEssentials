@@ -1,0 +1,42 @@
+{
+	"format_version": 2,
+	"metadata": {
+		"authors": [
+			"fruitkitty"
+		],
+		"generated_with": {
+			"bridge": [
+				"2.7.37"
+			],
+			"dash": [
+				"0.11.7"
+			]
+		}
+	},
+	"header": {
+		"name": "§d§lBlossom Essentials RP! §r§d- §ev0.1",
+		"description": "§dMade with love by fruitkitty, Simple Essentials rewrite!",
+		"min_engine_version": [
+			1,
+			21,
+			30
+		],
+		"uuid": "f8d4a173-ad21-4462-a2c7-cee4dcf21c38",
+		"version": [
+			0,
+			1,
+			0
+		]
+	},
+	"modules": [
+		{
+			"type": "resources",
+			"uuid": "49399a05-0ebd-41a7-919a-8aa3740a188d",
+			"version": [
+				1,
+				0,
+				0
+			]
+		}
+	]
+}

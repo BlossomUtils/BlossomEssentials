@@ -1,0 +1,40 @@
+{
+  "namespace": "play",
+
+  "local_world_edit_button@common_buttons.dark_glyph_button": {
+    "size": [ "100%y", "100%" ],
+    "$pressed_button_name": "button.menu_local_world_item_edit",
+    "$button_content": "play.edit_icon",
+    "$button_tts_header": "accessibility.play.editWorld",
+    "layer": 2,
+    "bindings": [
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "local_worlds"
+      }
+    ]
+  },
+
+  "local_world_item": {
+    "type": "stack_panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "layer": 1,
+    "size": [ "100% - 2px", 29 ],
+    "orientation": "horizontal",
+    "$local_world_edit_button_visible|default": true,
+    "controls": [
+      {
+        "header_button_panel@play.header_button_panel": {
+          "layer": 1,
+          "size": [ "100%", "100% + 1px" ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "$primary_header_button": "play.local_world_item_button",
+          "$secondary_header_button": "play.cloud_upload_and_edit_world_stack_panel",
+          "$secondary_visible": "$local_world_edit_button_visible"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+	"resource_pack_name": "Custom Commands",
+	"texture_name": "atlas.items",
+	"texture_data": {
+		"admin": {
+			"textures": "textures/items/settings"
+		},
+		"floating_text_spawn_egg": {
+			"textures": "textures/items/floating_text_spawn_egg"
+		},
+		"redeem": {
+			"textures": "textures/items/redeem"
+		}
+	}
+}

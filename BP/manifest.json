@@ -1,0 +1,56 @@
+{
+    "format_version": 2,
+    "metadata": {
+      "authors": [
+        "fruitkitty"
+      ]
+    },
+    "header": {
+      "name": "§d§lBlossom Essentials BP! §r§d- §ev0.1",
+      "description": "§dMade with love by fruitkitty, Simple Essentials rewrite!",
+      "min_engine_version": [
+        1,
+        21,
+        40
+      ],
+      "uuid": "d796ba58-a13b-4a75-90c2-0691ddcddb8b",
+      "version": [
+        0,
+        1,
+        0
+      ]
+    },
+    "modules": [
+      {
+        "type": "data",
+        "uuid": "1127f689-b437-4b45-85d5-76fd3dd26ab0",
+        "version": [
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "type": "script",
+        "language": "javascript",
+        "uuid": "28041198-79ad-41c1-84d7-dafcaf142820",
+        "entry": "scripts/index.js",
+        "version": [
+          1,
+          0,
+          0
+        ]
+      }
+    ],
+    "dependencies": [
+      {
+        "module_name": "@minecraft/server",
+        "version": "1.16.0-beta"
+      },
+      {
+        "module_name": "@minecraft/server-ui",
+        "version": "1.4.0-beta"
+      }
+    ],
+    "capabilities": ["script_eval"]
+  }

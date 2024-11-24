@@ -1,0 +1,59 @@
+{
+  "namespace": "trade2_pocket",
+
+  "arrow_right_image_list": {
+    "type": "image",
+    "size": [ 16, 13 ],
+    "color": "$text_color",
+    "texture": "textures/ui/arrow_list"
+  },
+
+  "arrow_holder": {
+    "type": "panel",
+    "size": [ 16, 0 ],
+    "controls": [
+      {
+        "arrow_image@trade2_pocket.arrow_right_image_list": {
+          "bindings": [
+            {
+              "binding_type": "collection_details"
+            },
+            {
+              "binding_name": "#trade_toggle_enabled",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "cross_out_image@trade2.cross_out_image": {
+          "layer": 2,
+          "anchor_from": "right_middle",
+          "anchor_to": "right_middle",
+          "bindings": [
+            {
+              "binding_type": "collection_details"
+            },
+            {
+              "binding_name": "#trade_cross_out_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "lock_image@trade2.lock_image": {
+          "bindings": [
+            {
+              "binding_type": "collection_details"
+            },
+            {
+              "binding_name": "(not #trade_toggle_enabled)",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "namespace": "realms_allowlist",
+
+  "options_icon": {
+    "type": "image",
+    "layer": 0,
+    "texture": "textures/ui/more-dots",
+    "color": "$text_color",
+    "size": [ 11, 11 ]
+  }
+}

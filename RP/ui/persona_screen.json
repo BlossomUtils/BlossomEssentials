@@ -1,0 +1,137 @@
+{
+  "namespace": "persona",
+
+  "persona_skin_pack_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "top_padding": {
+          "type": "panel",
+          "size": [ "100%", 6 ]
+        }
+      },
+      {
+        "pack_label": {
+          "type": "label",
+          "size": [ "100%", 10 ],
+          "text": "#pack_title",
+          "color": "$dressing_room_right_side_default_text_color",
+          "bindings": [
+            {
+              "binding_type": "$persona_skin_pack_binding_type",
+              "binding_collection_name": "$persona_skin_pack_collection_name",
+              "binding_name": "#pack_title"
+            }
+          ]
+        }
+      },
+      {
+        "mid_padding": {
+          "type": "panel",
+          "size": [ "100%", 1 ]
+        }
+      },
+      {
+        "pack_body@common.empty_panel": {
+          "size": [ "100%", "100%cm" ],
+          "controls": [
+            {
+              "progress_loading_button@common.button": {
+                "size": [ "100%", 26 ],
+                "$pressed_button_name": "button.fake_button",
+                "$button_content": "",
+                "controls": [
+                  {
+                    "content@persona.loading_progress_bars": {}
+                  },
+                  {
+                    "default@common.empty_panel": {}
+                  },
+                  {
+                    "hover@persona.focus_border_skin_picker": {}
+                  },
+                  {
+                    "pressed@persona.selected_border_skin_picker": {}
+                  }
+                ],
+                "bindings": [
+                  {
+                    "binding_type": "$persona_skin_pack_binding_type",
+                    "binding_name": "#is_classic_skin_pack_loading",
+                    "binding_collection_name": "$persona_skin_pack_collection_name",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "skin_pack_panel": {
+                "type": "image",
+                "texture": "textures/ui/dressing_room_banner",
+                "color": "$dressing_room_skin_picker_dark_bg_color",
+                "alpha": 1.0,
+                "anchor_from": "bottom_right",
+                "anchor_to": "bottom_right",
+                "size": [ "100%", "100%cm" ],
+                "bindings": [
+                  {
+                    "binding_type": "$persona_skin_pack_binding_type",
+                    "binding_name": "(not #is_classic_skin_pack_loading)",
+                    "binding_collection_name": "$persona_skin_pack_collection_name",
+                    "binding_name_override": "#visible"
+                  }
+                ],
+                "controls": [
+                  {
+                    "skins_grid": {
+                      "type": "grid",
+                      "size": [ "75%", "50.5989%x" ],
+                      "anchor_to": "left_middle",
+                      "anchor_from": "left_middle",
+
+                      "$persona_skin_binding_type|default": "collection",
+                      "$persona_skin_collection_prefix|default": "persona_skin",
+                      "$persona_skin_collection_name|default": "persona_skin_collection",
+
+                      "$pack_dimension_binding": "#pack_dimensions",
+                      "grid_dimension_binding": "$pack_dimension_binding",
+                      "grid_item_template": "persona.persona_skin_button_for_pack_view",
+                      "collection_name": "$persona_skin_collection_name",
+
+                      "bindings": [
+                        {
+                          "binding_name": "$pack_dimension_binding"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "expand_view_button@common_buttons.light_content_button": {
+                      "size": [ "25%", 10 ],
+                      "anchor_from": "right_middle",
+                      "anchor_to": "right_middle",
+                      "inherit_max_sibling_height": true,
+                      "$pressed_alpha": 1.0,
+                      "$default_button_alpha": 1.0,
+                      "$pressed_button_name": "button.expand_skin_pack",
+                      "$button_content": "persona.skin_pack_expand_pack",
+                      "bindings": [
+                        {
+                          "binding_type": "collection_details",
+                          "binding_collection_name": "$persona_skin_pack_collection_name",
+                          "binding_collection_prefix": "$persona_skin_pack_collection_prefix"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

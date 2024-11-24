@@ -1,0 +1,25 @@
+{
+    "fullscreen_background@dialog_background_hollow_common": {
+        "texture": "textures/ui/fullscreen_background"
+    },
+    "dialog_background_hollow_3_light@common.dialog_background_hollow_common": {
+        "texture": "textures/ui/dialog_background_hollow_3_light"
+    },
+    "dropdown_background_light": {
+        "layer": 1,
+        "type": "image",
+        "texture": "textures/ui/dropdown_background_light"
+    },
+    "edit_box_indent2": {
+        "type": "image",
+        "texture": "textures/ui/edit_box_indent2",
+        "alpha": "$alpha",
+        "$alpha|default": 1.0
+      },
+      "edit_box_indent_hover2": {
+        "type": "image",
+        "texture": "textures/ui/edit_box_indent_hover2",
+        "alpha": "$alpha",
+        "$alpha|default": 1.0
+      }
+}
