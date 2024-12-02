@@ -1,8 +1,12 @@
 import { prismarineDb } from "../lib/prismarinedb";
+import * as mc from "@minecraft/server"
 
 class ranks {
     constructor() {
         this.db = prismarineDb.table("ranks")
+        this.defaultRank = mc.world.getDynamicProperty("defaultRank")
+        this.defaultNameColor = mc.world.getDynamicProperty("defaultNameColor")
+        this.defaultChatColor = mc.world.getDynamicProperty("defaultChatColor")
     }
     getAll() {
         return this.db.findDocuments({})
@@ -45,6 +49,11 @@ class ranks {
         doc.data.display = display
         this.db.overwriteDataByID(doc.id, doc.data)
         return true;
+    }
+    updateDefaults() {
+        this.defaultRank = mc.world.getDynamicProperty("defaultRank")
+        this.defaultNameColor = mc.world.getDynamicProperty("defaultNameColor")
+        this.defaultChatColor = mc.world.getDynamicProperty("defaultChatColor")
     }
 }
 

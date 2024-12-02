@@ -1,10 +1,17 @@
+import * as mc from '@minecraft/server'
+
+/**
+ * Changing any of these values can break people's custom UIs, espiecally if you change the non-string one.
+ */
+
 export default {
     uiNames: {
         Config: {
             Root: "blossom_config | Blossom/Config",
             Main: "blossom_config_main | Blossom/Config/Main",
             Credits: "blossom_config_credits | Blossom/Config/Credits",
-            EditPrefix: "blossom_config_prefix | Blossom/Config/Prefix"
+            EditPrefix: "blossom_config_prefix | Blossom/Config/Prefix",
+            Modules: "blossom_config_modules | Blossom/Config/Modules"
         },
         Homes: {
             Root: "homes_root | Homes/Root",
@@ -51,16 +58,51 @@ export default {
             EditItems: "ranks_edititems | Ranks/Edit/Items",
             Edit: "ranks_edit | Ranks/Edit",
             Root: "ranks | Ranks/Root"
+        },
+        platformSettings: {
+            Edit: "platformsettings_edit | PlatformSettings/Edit",
+            Root: "platformsettings_root | PlatformSettings/Root",
+            Whitelist: {
+                Add: "platformwhitelist_add | PlatformWhitelist/Add",
+                Remove: "platformwhitelist_remove | PlatformWhitelist/Remove",
+                Root: "platformwhitelist | PlatformWhitelist"
+            }
+        },
+        Basic: {
+            Confirmation: "basic_confirm | Basic/Confirm"
+        },
+        Clans: {
+            root: "clans_root | Clans/Root",
+            create: "clans_create | Clans/Create",
+            editPlayer: "clans_players_edit | Clans/Players/Edit",
+            invites: "clans_invites | Clans/Invites",
+            players: "clans_players | Clans/Players",
+            invite: "clans_invite | Clans/Invite",
+            viewInvite: "clans_viewinvite | Clans/ViewInvite"
+        },
+        CustomCommands: {
+            Root: "customcommands_root | CustomCommands/Root",
+            Create: "customcommands_create | CustomCommands/Create",
+            EditCmds: "customcommands_editcmds | CustomCommands/EditCmds",
+            Edit: "customcommands_edit | CustomCommands/Edit",
+            Remove: "customcommands_remove | CustomCommands/Remove"
+        },
+        development: {
+            ChestGUITest: "dev_chestgui | Dev/ChestGUI"
         }
     },
     info: {
-        version: "0.1.0",
+        version: "0.1.2",
         name: "Blossom Essentials",
-        authors: [ {name: "FruitKitty", icon: "icons/FruitKitty.png", description: "Made the addon"}, {name: "TrashyKitty", icon: "icons/TrashyKitty.png", description: "Some APIs and PrismarineDB"} ],
+        authors: [ 
+        {name: "FruitKitty", icon: "icons/FruitKitty.png", description: "Made the addon"},
+        {name: "TrashyKitty", icon: "icons/TrashyKitty.png", description: "Some APIs and PrismarineDB"} 
+        ],
         documentation: "blossom.amethystdev.com"
     },
     details: {
         openCustomUI: "blossom:open",
-        openMainUI: "blossom:openui"
+        openMainUI: "blossom:openui",
+        configItem: "blossom:config"
     }
 }

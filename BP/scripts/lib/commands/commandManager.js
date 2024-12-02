@@ -5,8 +5,10 @@ import { parseCommand } from "./parseCommand";
 class CommandManager {
     constructor() {
         this.prefix = "-";
-        this.cmds = prismarineDb.nonPersistentTable("Commands")
-        this.subcmds = prismarineDb.nonPersistentTable("SubCommands")
+        this.cmds = prismarineDb.table("Commands")
+        this.subcmds = prismarineDb.table("SubCommands")
+        this.cmds.clear()
+        this.subcmds.clear()
     }
     changecommandManagerPrefix(newPrefix) {
         this.prefix = `${newPrefix}`;
@@ -30,13 +32,22 @@ class CommandManager {
             callback
         });
     }
+    removeCommand(name) {
+        let cmd = this.cmds.findFirst({ name });
+        if (cmd) {
+            console.log(`Removing command: ${name} with ID: ${cmd.id}`);
+            this.cmds.deleteDocumentByID(cmd.id);
+        } else {
+            console.log(`Command ${name} not found for removal.`);
+        }
+    }
     getSubCommandsFromCommand(name) {
         return this.subcmds.findDocuments({parent:name}).map(_=>_.data);
     }
     run(msg) {
         system.run(()=>{
             if(!msg.message.startsWith(this.prefix)) return;
-            let data = parseCommand(msg.message, this.prefix);
+            let data = msg.message.replaceAll(this.prefix, "").split(" ");
             let cmdName = data[0];
             let args = data.slice(1);
             let cmd = this.cmds.findFirst({name: cmdName});

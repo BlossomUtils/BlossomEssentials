@@ -1641,6 +1641,7 @@ import { ActionFormData } from "@minecraft/server-ui";
 var ActionForm = class {
   constructor() {
     __privateAdd(this, _form);
+    this.titleText = ""
     this.callbacks = [];
     __privateSet(this, _form, new ActionFormData());
   }
@@ -1656,8 +1657,13 @@ var ActionForm = class {
     __privateGet(this, _form).body(text);
   }
   show(player, responseFn) {
+    if (player.hasTag("light-mode")) {
+      const lightTitle = `§l§i§g§h§t§r§8${this.titleText.replace(/§r/g, "§r§8")}`;
+      const lightTitle2 = lightTitle.replace(/§f§u§l§l§s§c§r§e§e§n/g, "");
+      __privateGet(this, _form).title(lightTitle2);
+    }
     __privateGet(this, _form).show(player).then((res) => {
-      if (responseFn && typeof responseFn == "function") {
+      if (responseFn && typeof responseFn === "function") {
         responseFn(player, res);
       }
       if (res.canceled) return;
@@ -1665,7 +1671,7 @@ var ActionForm = class {
         this.callbacks[res.selection](player, res);
       }
     });
-  }
+  }  
 };
 _form = new WeakMap();
 

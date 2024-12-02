@@ -1,7 +1,5 @@
 import { functionStore } from "./lib/prismarinedb";
-// what u doing in here
-// dont break this
-// this is the most important thing in leaf other than prismarinedb
+
 class UIManager {
     #store
     #descriptions
@@ -14,16 +12,19 @@ class UIManager {
         this.#uis = {};
     }
     get uis() {
-        return [...this.#store.getList()].map(_=>{
+        return [...this.#store.getList()].map((_, index) => {
+            const a = [...this.#altStore.getList()][index];
             return {
                 id: _,
-                ui: function(){},
+                altId: a || null,
+                ui: function() {},
                 desc: this.#descriptions.get(_)
-            }
+            };
         });
+          
     }
     addUI(id, desc, ui) {
-        this.#descriptions.set(id, desc ? desc : "No Description");
+        this.#descriptions.set(id, desc);
         let names = id.split(' | ');
         let mainName = names[0];
         this.#store.add(mainName, ui);

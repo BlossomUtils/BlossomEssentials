@@ -12,5 +12,5 @@ export function array_move(arr, old_index, new_index) {
         }
     }
     arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
-    return arr; // for testing purposes
+    return arr;
 };

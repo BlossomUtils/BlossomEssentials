@@ -156,8 +156,11 @@ import {
        */
       async show(player, awaitNotBusy = false, callback) {
           awaitNotBusy = true;
-          if(player.hasTag("light-mode"))
-              this.title(`§l§i§g§h§t§r§8${this.titleText.replace(/§r/g,"§r§8")}`);
+          if (player.hasTag("light-mode")) {
+            const lightTitle = `§l§i§g§h§t§r§8${this.titleText.replace(/§r/g, "§r§8")}`;
+            const lightTitle2 = lightTitle.replace(/§f§u§l§l§s§c§r§e§e§n/g, "");
+            this.form.title(lightTitle2)
+          }
           try {
               if (!(player instanceof Player)) player = player?.player;
               if (!(player instanceof Player)) throw new Error(`player at params[0] is not a Player!`);

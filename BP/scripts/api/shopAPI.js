@@ -59,6 +59,8 @@ class shopAPI {
             money = mc.world.scoreboard.addObjective(`${this.money}`, "Money");
         }
         console.log("test2")
+        let getScore = money.getScore(player);
+        if(!getScore) money.addScore(player, 0);
         if (money.getScore(player) > price) {
             money.addScore(player, -price)
             simple.commandFeedback("off")

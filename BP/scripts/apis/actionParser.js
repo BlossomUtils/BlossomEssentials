@@ -8,7 +8,7 @@ class ActionParser {
             return;
         }
         try {
-            player.runCommand(command);
+            player.runCommandAsync(command);
         } catch (e) {
             player.error(`${e.message}`)
         }
