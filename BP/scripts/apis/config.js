@@ -1,8 +1,9 @@
 import * as mc from '@minecraft/server'
 
 /**
- * Changing any of these values can break people's custom UIs, espiecally if you change the non-string one.
+ * Changing any of these values can break people's custom UIs, especially if you change the non-string one.
  */
+// why did i need to remind myself of this lol 😭
 
 export default {
     uiNames: {
@@ -32,6 +33,14 @@ export default {
             Edit: "uibuilder_edit | UIBuilder/Edit",
             EditButton: "uibuilder_editbutton | UIBuilder/EditButton",
             EditButtons: "uibuilder_editbuttons | UIBuilder/EditButtons"
+        },
+        UIBuilderV2: {
+            Root: "uibuilderv2_root | UIBuilderV2/Root",
+            Add: "uibuilderv2_add | UIBuilderV2/Add",
+            AddButton: "uibuilderv2_addbutton | UIBuilderV2/AddButton",
+            Edit: "uibuilderv2_edit | UIBuilderV2/Edit",
+            EditButton: "uibuilderv2_editbutton | UIBuilderV2/EditButton",
+            EditButtons: "uibuilderv2_editbuttons | UIBuilderV2/EditButtons"
         },
         PlayerWarps: {
             Root: "playerwarps_root | PlayerWarps/Root",
@@ -87,21 +96,29 @@ export default {
             Edit: "customcommands_edit | CustomCommands/Edit",
             Remove: "customcommands_remove | CustomCommands/Remove"
         },
+        SidebarEditor: {
+            Add: "sidebareditor_add | SidebarEditor/Add",
+            AddLine: "sidebareditor_addline | SidebarEditor/AddLine",
+            Edit: "sidebareditor_edit | SidebarEditor/Edit",
+            EditLine: "sidebareditor_editline | SidebarEditor/EditLine",
+            Root: "sidebareditor_root | SidebarEditor/Root"
+        },
         development: {
             ChestGUITest: "dev_chestgui | Dev/ChestGUI"
         }
     },
     info: {
-        version: "0.1.2",
+        version: "0.1.3.1",
         name: "Blossom Essentials",
-        authors: [ 
-        {name: "FruitKitty", icon: "icons/FruitKitty.png", description: "Made the addon"},
-        {name: "TrashyKitty", icon: "icons/TrashyKitty.png", description: "Some APIs and PrismarineDB"} 
+        authors: [
+            { name: "FruitKitty", icon: "icons/FruitKitty.png", description: "Made the addon" },
+            { name: "TrashyKitty", icon: "icons/TrashyKitty.png", description: "Some APIs and PrismarineDB" }
         ],
         documentation: "blossom.amethystdev.com"
     },
     details: {
-        openCustomUI: "blossom:open",
+        openLegacyCustomUI: "blossom:openlegacy",
+        openV2CustomUI: "blossom:open",
         openMainUI: "blossom:openui",
         configItem: "blossom:config"
     }

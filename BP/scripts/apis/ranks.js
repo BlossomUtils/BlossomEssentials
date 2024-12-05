@@ -28,12 +28,14 @@ class ranks {
     getFromTag(tag) {
         return this.db.findFirst({tag})
     }
-    create(tag, display) {
+    create(tag, display, nameColor, chatColor) {
         let doc = this.getFromTag(tag)
         if(doc) return false;
         this.db.insertDocument({
             tag,
-            display
+            display,
+            nameColor,
+            chatColor
         })
         return true;
     }
@@ -43,10 +45,12 @@ class ranks {
         this.db.deleteDocumentByID(doc.id)
         return true;
     }
-    edit(tag, display) {
+    edit(tag, display, nc, cc) {
         let doc = this.getFromTag(tag)
         if(!doc) return false;
         doc.data.display = display
+        doc.data.nameColor = nc
+        doc.data.chatColor = cc
         this.db.overwriteDataByID(doc.id, doc.data)
         return true;
     }

@@ -13,7 +13,7 @@ uiManager.addUI(config.uiNames.Ranks.EditItems, "Ranks UI", (player) => {
     });
     for (const doc of list) {
         form.button(`§d${doc.data.tag}\n§7[ Click to edit ]`, null, (player) => {
-            uiManager.open(player, config.uiNames.Ranks.Edit, doc.data.tag, doc.data.display)
+            uiManager.open(player, config.uiNames.Ranks.Edit, doc.data.tag, doc.data.display, doc.data.nameColor, doc.data.chatColor)
         });
     }
 

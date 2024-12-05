@@ -1,5 +1,5 @@
 import './config/root'
-import './uiBuilder/index'
+import './uiBuilderLegacy/index'
 import './basic/index'
 import './warps/index'
 import './homes/index'
@@ -8,6 +8,8 @@ import './shop/root'
 import './platformSettings/index'
 import './clans/index'
 import './customCommands/index'
+import './UIBuilderV2/index'
+import './sidebar/index'
 // import './test'
 
 // import all index in folders

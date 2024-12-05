@@ -7,13 +7,16 @@ import ranks from './apis/ranks'
 import shopAPI from './api/shopAPI'
 
 import './uis/index'
+import './blossomAPI'
 import './commands/index'
+import './apis/sidebarDisplay'
 import config from './apis/config'
 import moduleAPI from './apis/modules'
 import platformAPI from './apis/platformAPI'
 import playerStorage from './apis/playerStorage'
 import clanAPI from './apis/clanAPI'
 import customCommands from './apis/customCommands'
+import V2Opener from './apis/openers/V2Opener'
 
 customCommands.pushCommands()
 
@@ -86,7 +89,7 @@ mc.world.beforeEvents.chatSend.subscribe((msg) => {
         msg.cancel = true;
         return;
     }
-    if (moduleAPI.gdp("chatRanks") === false) return;
+    if (moduleAPI.gdp("chatRanks") === false) return msg.sender.runCommandAsync(`scriptevent blossom:messageSent <${msg.sender.name}> ${msg.message}`);
     let allranks = ranks.getAllFromPlayer(msg.sender)
     if (allranks.length === 0) {
         if (msg.sender.name === "FruitKitty7041") {
@@ -95,14 +98,29 @@ mc.world.beforeEvents.chatSend.subscribe((msg) => {
             allranks.push("§bMember")
         }
     }
+    let docs = ranks.db.findDocuments()
+    let nc;
+    let cc;
+    for (const doc of docs) {
+        let tags = msg.sender.getTags();
+        for (const tag of tags) {
+            if (tag === doc.data.tag) {
+                nc = doc.data.nameColor
+                cc = doc.data.chatColor
+                break;
+            }        
+        }
+    }
+    if(!nc) nc = "§7"
+    if(!cc) cc = "§7"
     let clan = clanAPI.getClanbyPlayer(msg.sender)
     if (clan) {
-        allranks.unshift(`§d${clan.data.name}`)
+        allranks.unshift(`${nc}${clan.data.name}`)
         if (msg.sender.hasTag("clanChat")) {
             for (const plr of clan.data.players) {
                 for (const plr2 of mc.world.getPlayers()) {
                     if (playerStorage.getID(plr2) === plr.id) {
-                        plr2.sendMessage(`§8[§d${clan.data.name}§r§8]§7 (Clan Chat) ${msg.sender.name}§8 >>§7 ${msg.message}`);
+                        plr2.sendMessage(`§8[${nc}${clan.data.name}§r§8]§7 (Clan Chat)${nc} ${msg.sender.name}§8 >>${cc} ${msg.message}`);
                     }
                 }
             }
@@ -113,6 +131,9 @@ mc.world.beforeEvents.chatSend.subscribe((msg) => {
 
     let joined = allranks.join('§r§8] [§r');
 
-    mc.world.sendMessage(`§8[§r${joined}§r§8]§7 ${msg.sender.name}§8 >>§7 ${msg.message}`);
+
+
+    mc.world.sendMessage(`§8[§r${joined}§r§8]${nc} ${msg.sender.name}§8 >>${cc} ${msg.message}`);
+    msg.sender.runCommandAsync(`scriptevent blossom:messageSent - [${joined.replaceAll(/§[0-9a-fgmnolr]/gi, "")}] ${msg.sender.name} >> ${msg.message}`)
     msg.cancel = true;
 })

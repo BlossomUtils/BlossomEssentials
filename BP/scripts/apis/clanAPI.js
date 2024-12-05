@@ -102,6 +102,10 @@ class clanAPI {
             }
         }
     }
+    reload() {
+        this.db = prismarineDb.table("clans")
+        this.inviteDb = prismarineDb.table("clans_inviteDb")
+    }
 }
 
 export default new clanAPI();

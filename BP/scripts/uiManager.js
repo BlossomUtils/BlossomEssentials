@@ -37,6 +37,7 @@ class UIManager {
     open(player, id, ...data) {
         let name = id.split(' | ')[0];
         let type = this.#uis[name];
+        player.runCommandAsync(`scriptevent blossom:uiOpened A UI was opened by ${player.name} with ID ${name}`)
         if(type == "MAIN") {
             this.#store.call(name, player, ...data);
         } else if(type == "ALT") {

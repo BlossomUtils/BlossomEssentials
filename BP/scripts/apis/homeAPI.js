@@ -30,10 +30,14 @@ class homeAPI {
     }
     teleportTo(player, name) {
         let doc = this.findByName(name, player.name)
+        player.runCommandAsync(`scriptevent blossom:homeTeleportedTo ${player.name} just teleported to the home "${name}"`)
         if(!doc) return player.error(`Could not find home with name: ${name} under ${player.name}`);
         player.teleport(doc.data.location, {
             dimension: mc.world.getDimension("overworld")
         })
+    }
+    reload() {
+        this.db = prismarineDb.table("homes")
     }
 }
 

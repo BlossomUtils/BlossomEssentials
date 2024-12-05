@@ -15,12 +15,12 @@ mc.world.afterEvents.itemUse.subscribe((e) => {
 
 uiManager.addUI(config.uiNames.Config.Root, "Admin Main", (player)=>{
     let form = new ActionForm();
-    form.title("§f§u§l§l§s§c§r§e§e§n§r§dConfig UI")
-    form.button(`§dWelcome!\n§7This is ${config.info.name} version ${config.info.version}`, "textures/blocks/cherry_leaves", (player)=>{})
+    form.title("§t§e§s§t§r§dConfig UI")
+    form.button(`§dWelcome!\n§7${config.info.name} v${config.info.version}`, "textures/blocks/cherry_leaves", (player)=>{})
     form.button(`§dMain Settings\n§7Configuration`, "textures/items/settings.png", (player)=>{
         uiManager.open(player, config.uiNames.Config.Main)
     })
-    form.button(`§dModules\n§7Edit modules in ${config.info.name}`, "textures/azalea_icons/ClickyClick.png", (player)=>{
+    form.button(`§dModules\n§7Edit modules`, "textures/azalea_icons/ClickyClick.png", (player)=>{
         uiManager.open(player, config.uiNames.Config.Modules)
     })
     form.button(`§dCredits\n§r§7View credits`, "icons/icon.png", (player)=>{

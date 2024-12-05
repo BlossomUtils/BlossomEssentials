@@ -2783,6 +2783,7 @@ var ColorAPI = class {
       "Dark Red",
       "Dark Purple",
       "Gold",
+      "Gray",
       "Dark Gray",
       "Blue",
       "Green",
@@ -2798,6 +2799,7 @@ var ColorAPI = class {
       "Material Redstone",
       "Material Copper",
       "Material Gold",
+      "Material Emerald",
       "Material Diamond",
       "Material Lapis",
       "Material Amethyst"
@@ -2810,6 +2812,7 @@ var ColorAPI = class {
     for (let i = 0; i < colorNames.length; i++) {
       names.push(`${colorCodes[i]}${colorNames[i]}`);
     }
+    return names;
   }
   isValidColorCode(code) {
     return this.getColorCodes().includes(code);

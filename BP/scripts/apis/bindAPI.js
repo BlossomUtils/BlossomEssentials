@@ -33,5 +33,8 @@ class bindAPI {
         if(!doc) throw new Error("No document found");
         actionParser.runAction(player, doc.data.command)
     }
+    reload() {
+        this.db = prismarineDb.table("binds")
+    }
 }
 export default new bindAPI();

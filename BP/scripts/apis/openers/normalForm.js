@@ -15,7 +15,7 @@ class NormalFormOpener {
             data.buttons = [ ...data.buttons, ({
                 text: "§cAn error occurred",
                 subtext: "Click to view details",
-                iconID: "Packs/Asteroid/random33",
+                iconID: "",
                 action: `kick "${player.name}"`
             }) ]
         }

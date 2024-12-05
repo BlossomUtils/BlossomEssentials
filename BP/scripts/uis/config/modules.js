@@ -1,7 +1,7 @@
 import uiManager from "../../uiManager";
 import moduleAPI from "../../apis/modules";
 import config from "../../apis/config";
-import { ModalFormData } from '@minecraft/server-ui'
+import { ModalForm } from '../../lib/form_func'
 import * as mc from '@minecraft/server'
 
 let toggleOptions = [
@@ -11,8 +11,8 @@ let toggleOptions = [
 ]
 
 uiManager.addUI(config.uiNames.Config.Modules, "Change modules", (player) => {
-    let modalForm = new ModalFormData();
-    modalForm.title("Modules")
+    let modalForm = new ModalForm();
+    modalForm.title("§t§e§s§t§dModules")
     for (const option of toggleOptions) {
         modalForm.toggle(option.display, moduleAPI.gdp(option.property))
     }

@@ -61,5 +61,8 @@ class customCommands {
         this.db.overwriteDataByID(cmd.id, cmd.data)
         this.pushCommands()
     }
+    reload() {
+        this.db = prismarineDb.table("CustomCommands")
+    }
 }
 export default new customCommands();

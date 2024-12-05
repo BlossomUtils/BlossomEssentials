@@ -5,7 +5,7 @@ import uiManager from "../../uiManager";
 uiManager.addUI(config.uiNames.Config.Credits, "Credits UI", (player) => {
     const authors = config.info.authors
     let form = new ActionForm();
-    form.title("§dCredits");
+    form.title("§t§e§s§t§r§dCredits");
 
     form.button(`§cBack\n§7[ Go Back ]`, null, (player) => {
         uiManager.open(player, config.uiNames.Config.Root);

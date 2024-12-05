@@ -1,5 +1,5 @@
 import { system } from "@minecraft/server";
-import { prismarineDb } from "../../lib/prismarinedb";
+import { prismarineDb } from "../prismarinedb";
 import { parseCommand } from "./parseCommand";
 
 class CommandManager {

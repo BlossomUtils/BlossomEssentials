@@ -22,7 +22,7 @@ class UIBuilder {
         this.setState("SubUIs", true);
         system.afterEvents.scriptEventReceive.subscribe(e=>{
             
-            if(e.sourceType == ScriptEventSource.Entity && e.id == `${config.details.openCustomUI}`) {
+            if(e.sourceType == ScriptEventSource.Entity && e.id == `${config.details.openLegacyCustomUI}`) {
                 let ui = this.db.findFirst({scriptevent: e.message});
                 if(ui) {
                     this.open(ui.id, e.sourceEntity);
