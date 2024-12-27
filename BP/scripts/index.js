@@ -5,6 +5,9 @@ import uiManager from './uiManager'
 import commandManager from './lib/commands/commandManager'
 import ranks from './apis/ranks'
 import shopAPI from './api/shopAPI'
+import './apis/iconViewer/viewIcons'
+
+import { ScriptEventCommandMessageAfterEvent } from '@minecraft/server'
 
 import './uis/index'
 import './blossomAPI'
@@ -19,6 +22,15 @@ import customCommands from './apis/customCommands'
 import V2Opener from './apis/openers/V2Opener'
 
 customCommands.pushCommands()
+
+Object.defineProperty(ScriptEventCommandMessageAfterEvent.prototype, 'sender', {
+    get: function () {
+        return this.sourceEntity;
+    },
+    configurable: true,
+    enumerable: true
+});
+
 
 Player.prototype.error = function (msg) {
     this.sendMessage(`§c§lERROR§8 >>§r§7 ${msg}`)
@@ -81,6 +93,9 @@ mc.system.afterEvents.scriptEventReceive.subscribe(e => {
         let args = betterArgs(e.message);
         uiManager.open(e.sourceEntity, args[0], ...args.slice(1))
     }
+    if (e.id == `blossom:run`) {
+        commandManager.run(e)
+    }
 })
 
 mc.world.beforeEvents.chatSend.subscribe((msg) => {
@@ -89,7 +104,7 @@ mc.world.beforeEvents.chatSend.subscribe((msg) => {
         msg.cancel = true;
         return;
     }
-    if (moduleAPI.gdp("chatRanks") === false) return msg.sender.runCommandAsync(`scriptevent blossom:messageSent <${msg.sender.name}> ${msg.message}`);
+    if (moduleAPI.chatranks === false) return msg.sender.runCommandAsync(`scriptevent blossom:messageSent <${msg.sender.name}> ${msg.message}`);
     let allranks = ranks.getAllFromPlayer(msg.sender)
     if (allranks.length === 0) {
         if (msg.sender.name === "FruitKitty7041") {

@@ -1,68 +1,65 @@
-import { prismarineDb } from "../lib/prismarinedb";
-import commandManager from "../lib/commands/commandManager";
-import actionParser from "./actionParser";
+import commandManager from '../lib/commands/commandManager';
+import { prismarineDb } from '../lib/prismarinedb'
+import actionParser from './actionParser';
 
-class customCommands {
+class CustomCommands {
     constructor() {
         this.db = prismarineDb.table("CustomCommands")
     }
-    getCommand(name) {
-        return this.db.findFirst({name})
-    }
-    getCommands() {
-        return this.db.findDocuments()
-    }
-    getCommandWithID(id) {
-        return this.db.getByID(id)
-    }
-    addCommand(action, name, category, description, author) {
-        let cmd = this.getCommand(name)
-        if(cmd) return false;
-        let defcmd = commandManager.cmds.findFirst({name})
-        if(defcmd) return false;
+    add(name, category, description, author, action) {
+        let cmd = this.db.findFirst({name: name})
+        if(cmd) return;
         this.db.insertDocument({
-            action,
             name,
             category,
             description,
-            author
+            author,
+            action
         })
         this.pushCommands()
         return true;
     }
-    pushCommands() {
-        for (const cmd of this.db.findDocuments()) {
-            commandManager.addCommand(cmd.data.name, { 
-                description: cmd.data.description, 
-                category: cmd.data.category, 
-                author: cmd.data.author
-            }, ({msg}) => {
-                actionParser.runAction(msg.sender, cmd.data.action)
-            });
-        }
-    }
-    
-    removeCommand(id) {
-        let cmd = this.getCommandWithID(id)
-        if(!cmd) return false;
+    remove(id) {
+        let doc = this.get(id)
+        commandManager.removeCommand(doc.data.name)
         this.db.deleteDocumentByID(id)
-        commandManager.removeCommand(cmd.data.name)
         return true;
     }
-    editCommand(id, action, name, category, description, author) {
-        let cmd = this.getCommandWithID(id)
-        if(!cmd) return false;
-        commandManager.removeCommand(cmd.data.name)
-        cmd.data.action = action
-        cmd.data.name = name
-        cmd.data.category = category
-        cmd.data.description = description
-        cmd.data.author = author
-        this.db.overwriteDataByID(cmd.id, cmd.data)
+    pushCommands() {
+        for (const cmd of this.db.findDocuments()) {
+            commandManager.addCommand(cmd.data.name, {
+                description: cmd.data.description,
+                category: cmd.data.category,
+                author: cmd.data.author
+            }, ({msg})=>{
+                actionParser.runAction(msg.sender, cmd.data.action)
+            })
+        }
+    }
+    edit(id, name, category, description, author, action) {
+        let doc = this.get(id)
+        if(!doc) return;
+        commandManager.removeCommand(doc.data.name)
+        doc.data.name = name
+        doc.data.category = category
+        doc.data.description = description
+        doc.data.author = author
+        doc.data.action = action
+        this.db.overwriteDataByID(id, doc.data)
         this.pushCommands()
+    }
+    get(id) {
+        let doc = this.db.getByID(id)
+        if(!doc) return false;
+        if(doc) return doc;
+    }
+    findFirst(name) {
+        let doc = this.db.findFirst({name})
+        if(doc) return doc;
     }
     reload() {
         this.db = prismarineDb.table("CustomCommands")
     }
 }
-export default new customCommands();
+
+export default new CustomCommands()

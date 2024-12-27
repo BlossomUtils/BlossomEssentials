@@ -5,14 +5,14 @@ import customCommands from "../../apis/customCommands";
 
 uiManager.addUI(config.uiNames.CustomCommands.EditCmds, "Custom Commands root", (player)=>{
     let form = new ActionForm();
-    let cmds = customCommands.getCommands()
+    let cmds = customCommands.db.findDocuments()
     form.title("§dCustom Commands")
-    form.button(`§cBack\n§7[ Go back ]`, "textures/azalea_icons/Delete.png", (player)=>{
+    form.button(`§cBack\n§7[ Go back ]`, "textures/azalea_icons/2.png", (player)=>{
         uiManager.open(player, config.uiNames.CustomCommands.Root)
     })
     for (const cmd of cmds) {
         form.button(`§d${cmd.data.name}\n§7[ Edit Command ]`, "textures/azalea_icons/Settings.png", (player)=>{
-            uiManager.open(player, config.uiNames.CustomCommands.Edit, cmd)
+            uiManager.open(player, config.uiNames.CustomCommands.Edit, cmd.id)
         })
     }
 

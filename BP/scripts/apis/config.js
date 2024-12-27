@@ -7,12 +7,14 @@ import * as mc from '@minecraft/server'
 
 export default {
     uiNames: {
+        IconViewer: "iconviewer | IconViewer",
         Config: {
             Root: "blossom_config | Blossom/Config",
             Main: "blossom_config_main | Blossom/Config/Main",
             Credits: "blossom_config_credits | Blossom/Config/Credits",
             EditPrefix: "blossom_config_prefix | Blossom/Config/Prefix",
-            Modules: "blossom_config_modules | Blossom/Config/Modules"
+            Modules: "blossom_config_modules | Blossom/Config/Modules",
+            Extra: "blossom_config_extra | Blossom/Config/Extra"
         },
         Homes: {
             Root: "homes_root | Homes/Root",
@@ -103,12 +105,18 @@ export default {
             EditLine: "sidebareditor_editline | SidebarEditor/EditLine",
             Root: "sidebareditor_root | SidebarEditor/Root"
         },
+        Economy: {
+            Add: "economy_add | Economy/Add",
+            Edit: "economy_edit | Economy/Edit",
+            Root: "economy_root | Economy/Root",
+            Pay: "economy_pay | Economy/Pay"
+        },
         development: {
             ChestGUITest: "dev_chestgui | Dev/ChestGUI"
         }
     },
     info: {
-        version: "0.1.3.1",
+        version: "0.1.4",
         name: "Blossom Essentials",
         authors: [
             { name: "FruitKitty", icon: "icons/FruitKitty.png", description: "Made the addon" },

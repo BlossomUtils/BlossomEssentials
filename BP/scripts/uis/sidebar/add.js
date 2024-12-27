@@ -12,8 +12,9 @@ uiManager.addUI(config.uiNames.SidebarEditor.Add, "Sidebar editor add", (player)
         
         const [ name ] = res.formValues
 
-        if(!name) return player.error("No name set");
+        if(!name) return player.error("No name set"), uiManager.open(player, config.uiNames.SidebarEditor.Root)
 
         sidebar.addSidebar(name)
+        player.info("Adding a sidebar requires you to restart the server to add lines after. Thanks! :3")
     })
 })

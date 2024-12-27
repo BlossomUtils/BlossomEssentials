@@ -13,7 +13,7 @@ uiManager.addUI(config.uiNames.SidebarEditor.AddLine, "Sidebar editor add line",
     } else {
         text = line.text
     }
-    form.title(`§dSidebar Editor`)
+    form.title(`§f§u§l§l§s§c§r§e§e§n§r§dSidebar Editor`)
     form.textField(`§dText`, `Example: "§dMoney: {{money}}"`, text)
     form.show(player, false, (player, res) => {
 

@@ -14,12 +14,12 @@ mc.world.afterEvents.itemUse.subscribe((e) => {
 })
 
 commandManager.addCommand("bind", { description: "Bind a command to an item", category: "Setup" }, ({ msg, args }) => {
-    if(!msg.sender.hasTag('admin')) return msg.sender.error("You must have admin!")
-        if (moduleAPI.binding === false) {
-            if(args[0]) {
+    if (!msg.sender.hasTag('admin')) return msg.sender.error("You must have admin!")
+    if (moduleAPI.binding === false) {
+        if (args[0]) {
             return msg.sender.error("Binding is disabled")
-            }
         }
+    }
     let inventoryComponent = msg.sender.getComponent("inventory");
 
 
@@ -40,7 +40,7 @@ commandManager.addCommand("bind", { description: "Bind a command to an item", ca
 
 })
 commandManager.addSubcommand("bind", "remove", { description: "Remove binds" }, ({ msg, args }) => {
-    if(!msg.sender.hasTag('admin')) return msg.sender.error("You must have admin!");
+    if (!msg.sender.hasTag('admin')) return msg.sender.error("You must have admin!");
     if (moduleAPI.binding === false) return msg.sender.error("Binding is disabled");
     let inventoryComponent = msg.sender.getComponent("inventory");
 

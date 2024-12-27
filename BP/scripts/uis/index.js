@@ -10,6 +10,7 @@ import './clans/index'
 import './customCommands/index'
 import './UIBuilderV2/index'
 import './sidebar/index'
+import './economy/index'
 // import './test'
 
 // import all index in folders

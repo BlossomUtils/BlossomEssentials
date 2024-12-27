@@ -5,6 +5,7 @@ import * as mc from "@minecraft/server"
 import './credits'
 import './main'
 import './modules'
+import './extra'
 
 mc.world.afterEvents.itemUse.subscribe((e) => {
     if (e.itemStack.typeId === config.details.configItem) {
@@ -19,6 +20,9 @@ uiManager.addUI(config.uiNames.Config.Root, "Admin Main", (player)=>{
     form.button(`§dWelcome!\n§7${config.info.name} v${config.info.version}`, "textures/blocks/cherry_leaves", (player)=>{})
     form.button(`§dMain Settings\n§7Configuration`, "textures/items/settings.png", (player)=>{
         uiManager.open(player, config.uiNames.Config.Main)
+    })
+    form.button(`§dExtra Settings\n§7More configuration`, "textures/azalea_icons/10.png", (player)=>{
+        uiManager.open(player, config.uiNames.Config.Extra)
     })
     form.button(`§dModules\n§7Edit modules`, "textures/azalea_icons/ClickyClick.png", (player)=>{
         uiManager.open(player, config.uiNames.Config.Modules)

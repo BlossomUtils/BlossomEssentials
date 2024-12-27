@@ -11,7 +11,7 @@ class platformAPI {
         }
     }
     checkPlatform(player) {
-        return player.clientSystemInfo.platformType;
+        return player.clientSystemInfo.platformType.toLowerCase();
     }
     addtoWhitelist(name) {
         let ff = this.db.findFirst({name})

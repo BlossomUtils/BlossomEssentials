@@ -33,12 +33,9 @@ class CommandManager {
         });
     }
     removeCommand(name) {
-        let cmd = this.cmds.findFirst({ name });
-        if (cmd) {
-            console.log(`Removing command: ${name} with ID: ${cmd.id}`);
-            this.cmds.deleteDocumentByID(cmd.id);
-        } else {
-            console.log(`Command ${name} not found for removal.`);
+        let command = this.cmds.findFirst({name: name})
+        if (command) {
+            this.cmds.deleteDocumentByID(command.id)
         }
     }
     getSubCommandsFromCommand(name) {

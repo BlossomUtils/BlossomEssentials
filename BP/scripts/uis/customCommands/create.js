@@ -22,7 +22,7 @@ uiManager.addUI(config.uiNames.CustomCommands.Create, "Create a custom command",
                 if (!category) return error("You must enter a category!", player)
                     if (!description) return error("You must enter a description!", player)
                         if (!author) return error("You must enter an author!", player)
-            customCommands.addCommand(action, name, category, description, author)
+            customCommands.add(name, category, description, author, action)
             player.success(`Created command with name: ${name}`)
     })
 }) 

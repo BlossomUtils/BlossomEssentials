@@ -16,6 +16,7 @@ uiManager.addUI(config.uiNames.UIBuilderV2.Add, "UI Builder V2 Add UI", (player,
         defaultScriptevent = ui.data.scriptevent
         defaultLayout = ui.data.layout
     }
+    if(typeof defaultLayout == "string") defaultLayout = 0, console.log("test")
     let form = new ModalForm();
     form.title("Add UI")
     form.textField("Title", "Example: Best UI", defaultTitle)

@@ -15,7 +15,7 @@ uiManager.addUI(config.uiNames.SidebarEditor.Edit, "Sidebar editor edit", (playe
     if(!lines) throw new Error("Lines not initialized")
 
     let form = new ActionForm();
-    form.title(`${sd.data.name}`)
+    form.title(`§f§u§l§l§s§c§r§e§e§n§r${sd.data.name}`)
     form.button(`§cBack\n§7Go back to main UI`, null, (player)=>{
         uiManager.open(player, config.uiNames.SidebarEditor.Root)
     })
@@ -23,7 +23,7 @@ uiManager.addUI(config.uiNames.SidebarEditor.Edit, "Sidebar editor edit", (playe
         uiManager.open(player, config.uiNames.SidebarEditor.AddLine, id)
     })
     for (const line of lines.getLines(id)) {
-        form.button(`§a${line.text}\nUpdated ${moment(line.updatedAt).fromNow()}`, `textures/azalea_icons/Settings`, (player)=>{
+        form.button(`§r${line.text}`, null, (player)=>{
             uiManager.open(player, config.uiNames.SidebarEditor.EditLine, id, line.id)
         })
     }
