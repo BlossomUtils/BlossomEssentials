@@ -20,6 +20,8 @@ import playerStorage from './apis/playerStorage'
 import clanAPI from './apis/clanAPI'
 import customCommands from './apis/customCommands'
 import V2Opener from './apis/openers/V2Opener'
+import blossomFormatting from './apis/blossomFormatting'
+import bans from './apis/bans'
 
 customCommands.pushCommands()
 
@@ -47,6 +49,7 @@ Player.prototype.pdbid = function () {
 }
 
 mc.world.afterEvents.playerSpawn.subscribe((plrev) => {
+    bans.onJoin(plrev.player)
     let platform = platformAPI.checkPlatform(plrev.player).toLowerCase();
     platformAPI.clearTags(plrev.player)
     if (!platform) return;
@@ -147,8 +150,8 @@ mc.world.beforeEvents.chatSend.subscribe((msg) => {
     let joined = allranks.join('§r§8] [§r');
 
 
-
-    mc.world.sendMessage(`§8[§r${joined}§r§8]${nc} ${msg.sender.name}§8 >>${cc} ${msg.message}`);
+    let newmsg = blossomFormatting.format(msg.message, msg.sender)
+    mc.world.sendMessage(`§8[§r${joined}§r§8]${nc} ${msg.sender.name}§8 >>${cc} ${newmsg}`);
     msg.sender.runCommandAsync(`scriptevent blossom:messageSent - [${joined.replaceAll(/§[0-9a-fgmnolr]/gi, "")}] ${msg.sender.name} >> ${msg.message}`)
     msg.cancel = true;
 })

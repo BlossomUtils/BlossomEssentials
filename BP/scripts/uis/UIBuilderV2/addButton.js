@@ -13,31 +13,28 @@ uiManager.addUI(config.uiNames.UIBuilderV2.AddButton, "UI Builder V2 add button"
     if(button) {
         dt = button.text
         dst = button.subtext
-        da = button.action
         di = button.icon
         drq = button.requiredTag
     }
     form.title("§dUI Builder V2")
     form.textField("Text", "Best button!", dt)
     form.textField("Subtext", "This is the best button", dst)
-    form.textField("Action", "Action of this button", da)
     form.textField("Icon", "Icon path (Not required)", di)
     form.textField("Required Tag", "Example: admin", drq)
     form.submitButton("Submit")
 
     form.show(player, false, (player, response)=>{
         
-        const [ text, subtext, action, icon, rq ] = response.formValues
+        const [ text, subtext, icon, rq ] = response.formValues
 
         if(!text) return player.error("Text is required");
-        if(!action) return player.error("Action is required");
         if(!subtext) return player.error("Subtext is required");
 
         if(button) {
-            UIBuilderV2.editButton(button.id, ui.id, text, subtext, action, icon, rq)
+            UIBuilderV2.editButton(button.id, ui.id, text, subtext, icon, rq)
             uiManager.open(player, config.uiNames.UIBuilderV2.EditButtons, ui)
         } else {
-            UIBuilderV2.addButtontoUI(ui.id, text, subtext, action, icon, rq)
+            UIBuilderV2.addButtontoUI(ui.id, text, subtext, icon, rq)
             uiManager.open(player, config.uiNames.UIBuilderV2.EditButtons, ui)
         }
     })

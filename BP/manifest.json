@@ -6,7 +6,7 @@
       ]
     },
     "header": {
-      "name": "§d§lBlossom Essentials BP! §r§d- §ev0.1.4",
+      "name": "§d§lBlossom Essentials BP! §r§d- §ev0.1.5",
 
       "description": "§dMade with love by fruitkitty, Simple Essentials rewrite!",
       "min_engine_version": [
@@ -18,7 +18,7 @@
       "version": [
         0,
         1,
-        4
+        5
       ]
     },
     "modules": [

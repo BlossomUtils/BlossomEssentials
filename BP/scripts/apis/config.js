@@ -14,7 +14,8 @@ export default {
             Credits: "blossom_config_credits | Blossom/Config/Credits",
             EditPrefix: "blossom_config_prefix | Blossom/Config/Prefix",
             Modules: "blossom_config_modules | Blossom/Config/Modules",
-            Extra: "blossom_config_extra | Blossom/Config/Extra"
+            Extra: "blossom_config_extra | Blossom/Config/Extra",
+            Moderation: 'blossom_config_moderation | Blossom/Config/Moderation'
         },
         Homes: {
             Root: "homes_root | Homes/Root",
@@ -111,12 +112,40 @@ export default {
             Root: "economy_root | Economy/Root",
             Pay: "economy_pay | Economy/Pay"
         },
+        Moderation: {
+            Root: "moderation_root | Moderation/Root",
+            Warnings: {
+                Root: "moderation_warnings | Moderation/Warnings",
+                Add: "moderation_warnings_add | Moderation/Warnings/Add",
+                View: "moderation_warnings_view | Moderation/Warnings/View",
+                ViewAll: "moderation_warnings_viewall | Moderation/Warnings/ViewAll"
+            },
+            Reports: {
+                Dashboard: "reports_dashboard | Reports/Dashboard",
+                Create: "reports_create | Reports/Create",
+                View: "reports_view | Reports/View",
+                Admin: {
+                    Dashboard: "reports_admin_dashboard | Reports/Admin/Dashboard",
+                    View: "reports_admin_view | Reports/Admin/View",
+                }
+            },
+            Bans: {
+                Root: "moderation_bans | Moderation/Bans",
+                Create: "moderation_bans_create | Moderation/Bans/Create",
+                View: "moderation_bans_view | Moderation/Bans/View",
+                Edit: "moderation_bans_edit | Moderation/Bans/Edit"
+            },
+            Players: {
+                Options: "moderation_players_options | Moderation/Players/Options",
+                Root: "moderation_players_root | Moderation/Players/Root"
+            }
+        },
         development: {
             ChestGUITest: "dev_chestgui | Dev/ChestGUI"
         }
     },
     info: {
-        version: "0.1.4",
+        version: "0.1.5",
         name: "Blossom Essentials",
         authors: [
             { name: "FruitKitty", icon: "icons/FruitKitty.png", description: "Made the addon" },

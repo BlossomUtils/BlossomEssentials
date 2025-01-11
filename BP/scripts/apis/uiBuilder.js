@@ -6,7 +6,16 @@ import { system, ScriptEventSource } from '@minecraft/server';
 import { array_move } from "./utils/array_move";
 import translation from "./translation";
 import config from "./config";
-
+/*
+    /\___/\
+   (  o o  )
+   (  =^=  ) 
+    (  T  )  ︻デ═一
+     |___|
+    
+    dont break this!
+    - fruitkitty
+*/
 class UIBuilder {
     constructor() {
         this.db = prismarineDb.table("uis");

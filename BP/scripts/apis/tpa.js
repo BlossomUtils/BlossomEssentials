@@ -28,7 +28,7 @@ class tpaAPI {
 
         let doc = this.db.findFirst({toname: plr.name})
         
-        form.title("Higher Random Tick Warning");
+        form.title("TPA Request");
         form.body(`You have been asked to be teleported to by ${from}. Do you want to accept this request?`);
         form.button1("No!");
         form.button2("Yes!");

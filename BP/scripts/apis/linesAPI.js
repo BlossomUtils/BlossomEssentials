@@ -19,6 +19,17 @@ const generateUUID = () => {
     });
 };
 
+/*
+    /\___/\
+   (  o o  )
+   (  =^=  ) 
+    (  T  )  ︻デ═一
+     |___|
+    
+    dont break this!
+    - fruitkitty
+*/
+
 class sidebarLines {
     constructor() {
         this.db = prismarineDb.table("sidebar")

@@ -16,6 +16,16 @@ const generateUUID = () => {
       return (c == 'x' ? r : (r & 0x7 | 0x8)).toString(16);
     });
   };
+  /*
+    /\___/\
+   (  o o  )
+   (  =^=  ) 
+    (  T  )  ︻デ═一
+     |___|
+    
+    dont break this!
+    - fruitkitty
+*/
 let ids = {};
 class SegmentedStoragePrismarine {
     load(table) {

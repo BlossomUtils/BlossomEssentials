@@ -17,7 +17,10 @@ class V2Opener {
         for (const button of ui.buttons) {
             if(button.requiredTag && !plr.hasTag(button.requiredTag)) continue;
             form.button(`${button.text}\n§7${button.subtext}`, button.icon ? button.icon : null, (player) => {
-                actionParser.runAction(player, button.action)
+                if(!button.actions) return actionParser.runAction(player, button.action);
+                for(const action of button.actions) {
+                    actionParser.runAction(player, action)
+                }
             })
         }
         form.show(plr, false, (player, response) => {})

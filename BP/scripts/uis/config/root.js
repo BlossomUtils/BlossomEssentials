@@ -4,6 +4,7 @@ import config from "../../apis/config";
 import * as mc from "@minecraft/server"
 import './credits'
 import './main'
+import './moderation'
 import './modules'
 import './extra'
 
@@ -27,7 +28,10 @@ uiManager.addUI(config.uiNames.Config.Root, "Admin Main", (player)=>{
     form.button(`§dModules\n§7Edit modules`, "textures/azalea_icons/ClickyClick.png", (player)=>{
         uiManager.open(player, config.uiNames.Config.Modules)
     })
-    form.button(`§dCredits\n§r§7View credits`, "icons/icon.png", (player)=>{
+    form.button(`§dModeration\n§7Bans, reports, etc`, "textures/azalea_icons/5.png", (player)=>{
+        uiManager.open(player, config.uiNames.Config.Moderation)
+    })
+    form.button(`§dCredits\n§r§7View credits`, "textures/blossom_icons/credits.png", (player)=>{
         uiManager.open(player, config.uiNames.Config.Credits)
     })
     form.show(player)

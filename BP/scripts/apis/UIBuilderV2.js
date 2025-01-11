@@ -3,10 +3,20 @@ import { prismarineDb } from "../lib/prismarinedb";
 import { array_move } from "./utils/array_move";
 import config from "./config";
 import V2Opener from "./openers/V2Opener";
-
+/*
+    /\___/\
+   (  o o  )
+   (  =^=  ) 
+    (  T  )  ︻デ═一
+     |___|
+    
+    dont break this!
+    - fruitkitty
+*/
 class UIBuilderV2 {
     constructor() {
         this.db = prismarineDb.table("UIBuilderV2")
+        this.migrateOldActions();
         system.afterEvents.scriptEventReceive.subscribe((e)=>{
             if(e.id === config.details.openV2CustomUI) {
                 let ui = this.db.findFirst({scriptevent: e.message});
@@ -16,6 +26,15 @@ class UIBuilderV2 {
                 }
             }
         })
+    }
+    migrateOldActions() {
+        let uis = this.getUIs();
+        for (const ui of uis) {
+            for(const button of ui.data.buttons) {
+                if(!button.actions) button.actions = [button.action]
+            }
+            this.db.overwriteDataByID(ui.id, ui.data)
+        }
     }
     getUIbyID(id) {
         return this.db.getByID(id)
@@ -43,18 +62,42 @@ class UIBuilderV2 {
             scriptevent
         })
     }
-    addButtontoUI(uiId, text, subtext, action, icon, requiredTag) {
+    addButtontoUI(uiId, text, subtext, icon, requiredTag) {
         let ui = this.getUIbyID(uiId)
         let id = this.generateUUID();
-        ui.data.buttons.push({ text, subtext, action, icon, id, requiredTag })
+        ui.data.buttons.push({ text, subtext, icon, id, requiredTag, actions: [] })
         this.db.overwriteDataByID(ui.id, ui.data)
     }
-    editButton(buttonID, uiID, text, subtext, action, icon, requiredTag) {
+    addActionToButton(buttonID, uiID, action) {
+        let ui = this.db.getByID(uiID);
+        let button = ui.data.buttons.find(button => button.id === buttonID);
+        button.actions.push(action)
+        this.db.overwriteDataByID(uiID, ui.data);
+    }
+    removeActionFromButton(bid, uiid, index) {
+        let ui = this.getUIbyID(uiid);
+        ui.data.buttons.find(b => b.id === bid).actions.splice(index, 1)
+        this.db.overwriteDataByID(uiid, ui.data)
+    }
+    moveActionUp(bid, uiid, index) {
+        let ui = this.getUIbyID(uiid);
+        let button = ui.data.buttons.find(b => b.id === bid);
+        if(index >= button.actions.length) return;
+        button.actions = array_move(button.actions, index, index + 1)
+        this.db.overwriteDataByID(uiid, ui.data)
+    }
+    moveActionDown(bid, uiid, index) {
+        let ui = this.getUIbyID(uiid);
+        let button = ui.data.buttons.find(b => b.id === bid);
+        if(index <= 0) return;
+        button.actions = array_move(button.actions, index, index - 1)
+        this.db.overwriteDataByID(uiid, ui.data)
+    }
+    editButton(buttonID, uiID, text, subtext, icon, requiredTag) {
         let ui = this.getUIbyID(uiID)
         let button = ui.data.buttons.find(button => button.id === buttonID);
         button.text = text
         button.subtext = subtext
-        button.action = action
         button.icon = icon
         button.requiredTag = requiredTag
         this.db.overwriteDataByID(uiID, ui.data)

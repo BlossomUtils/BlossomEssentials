@@ -2,6 +2,7 @@ import { Player, world } from "@minecraft/server";
 import { prismarineDb } from "../lib/prismarinedb";
 import lines from "./linesAPI";
 import { array_move } from "./utils/array_move";
+import blossomFormatting from "./blossomFormatting";
 const generateUUID = () => {
     let
         d = new Date().getTime(),
@@ -48,14 +49,7 @@ class sidebarAPI {
         if(!sd) return undefined;
         let lines = [];
         for (const line of sd.data.lines) {
-            let value = this.extractBracketValue(line.text)
-            if(value) {
-                const objective = world.scoreboard.getObjective(value)
-                let newLine = line.text.replace(/{{(.*?)}}/, objective.getScore(player))
-                lines.push(newLine)
-            } else {
-                lines.push(line.text)
-            }
+            lines.push(blossomFormatting.format(line.text, player))
         }
         return lines.join("§r\n")
     }

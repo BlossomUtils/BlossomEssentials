@@ -1,7 +1,16 @@
 import commandManager from '../lib/commands/commandManager';
 import { prismarineDb } from '../lib/prismarinedb'
 import actionParser from './actionParser';
-
+/*
+    /\___/\
+   (  o o  )
+   (  =^=  ) 
+    (  T  )  ︻デ═一
+     |___|
+    
+    dont break this!
+    - fruitkitty
+*/
 class CustomCommands {
     constructor() {
         this.db = prismarineDb.table("CustomCommands")

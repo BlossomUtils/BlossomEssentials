@@ -53,7 +53,7 @@ class UIManager {
             } catch (e) {
                 let form = new ActionForm();
                 form.title("§cError")
-                form.body(`§cError opening UI: ${e}\n${e.stack}`)
+                form.body(`§cError opening UI ${name}: ${e}\n${e.stack}`)
                 form.button("Exit", null)
                 form.show(player)
             }
