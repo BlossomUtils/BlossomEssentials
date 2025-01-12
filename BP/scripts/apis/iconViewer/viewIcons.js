@@ -23,7 +23,7 @@ uiManager.addUI(config.uiNames.IconViewer, "View icons", (player, set = "azalea_
             1,
             false,
             () => {
-                UIBuilderV2.editButton(button.id, ui.id, button.text, button.subtext, button.action, icon.path, button.requiredTag)
+                UIBuilderV2.editButton(button.id, ui.id, button.text, button.subtext, icon.path, button.requiredTag)
                 uiManager.open(player, config.uiNames.UIBuilderV2.EditButton, ui, button)
             }
         );

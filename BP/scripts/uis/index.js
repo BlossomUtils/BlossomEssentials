@@ -12,6 +12,7 @@ import './UIBuilderV2/index'
 import './sidebar/index'
 import './economy/index'
 import './moderation/index'
+import './tpa/request'
 // import './test'
 
 // import all index in folders

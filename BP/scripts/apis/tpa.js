@@ -65,6 +65,7 @@ class tpaAPI {
             y: rq.data.loc.y,
             z: rq.data.loc.z
         })
+        this.db.deleteDocumentByID(rq.id)
         return true;
     }
 }

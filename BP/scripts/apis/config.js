@@ -138,14 +138,17 @@ export default {
             Players: {
                 Options: "moderation_players_options | Moderation/Players/Options",
                 Root: "moderation_players_root | Moderation/Players/Root"
-            }
+            }, 
+        },
+        TPA: {
+            Request: "tpa_request | TPA/Request"
         },
         development: {
             ChestGUITest: "dev_chestgui | Dev/ChestGUI"
         }
     },
     info: {
-        version: "0.1.5",
+        version: "0.1.5.1",
         name: "Blossom Essentials",
         authors: [
             { name: "FruitKitty", icon: "icons/FruitKitty.png", description: "Made the addon" },
