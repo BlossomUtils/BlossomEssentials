@@ -12,16 +12,20 @@ export default {
             Root: "blossom_config | Blossom/Config",
             Main: "blossom_config_main | Blossom/Config/Main",
             Credits: "blossom_config_credits | Blossom/Config/Credits",
-            EditPrefix: "blossom_config_prefix | Blossom/Config/Prefix",
             Modules: "blossom_config_modules | Blossom/Config/Modules",
             Extra: "blossom_config_extra | Blossom/Config/Extra",
-            Moderation: 'blossom_config_moderation | Blossom/Config/Moderation'
+            Moderation: 'blossom_config_moderation | Blossom/Config/Moderation',
+            Announcements: {
+                Root: 'blossom_config_announcements | Blossom/Config/Announcements',
+                Options: 'blossom_config_announcements_options | Blossom/Config/Announcements/Options',
+                Send: 'blossom_config_announcements_send | Blossom/Config/Announcements/Send'
+            },
+            Prefix: 'blossom_change_prefix | Blossom/ChangePrefix'
         },
         Homes: {
             Root: "homes_root | Homes/Root",
-            List: "homes_list | Homes/List",
             Add: "homes_add | Homes/Add",
-            Remove: "homes_remove | Homes/Remove"
+            View: 'homes_view | Homes/View'
         },
         Warps: {
             Root: "warps_root | Warps/Root",
@@ -43,7 +47,13 @@ export default {
             AddButton: "uibuilderv2_addbutton | UIBuilderV2/AddButton",
             Edit: "uibuilderv2_edit | UIBuilderV2/Edit",
             EditButton: "uibuilderv2_editbutton | UIBuilderV2/EditButton",
-            EditButtons: "uibuilderv2_editbuttons | UIBuilderV2/EditButtons"
+            EditButtons: "uibuilderv2_editbuttons | UIBuilderV2/EditButtons",
+            Tabbed: {
+                Add: "uibuilderv2_tabbed_add | UIBuilderV2/Tabbed/Add",
+                AddTab: "uibuilderv2_tabbed_addtab | UIBuilderV2/Tabbed/AddTab",
+                View: "uibuilderv2_tabbed_view | UIBuilderV2/Tabbed/View",
+                ViewTab: "uibuilderv2_tabbed_viewtab | UIBuilderV2/Tabbed/ViewTab"
+            }
         },
         PlayerWarps: {
             Root: "playerwarps_root | PlayerWarps/Root",
@@ -55,14 +65,22 @@ export default {
             Confirmation: "confirmation | Basic/Confirmation"
         },
         Shop: {
-            Add: "shop_add | Shop/Add",
-            RemoveItems: "shop_removeitems | Shop/RemoveItems",
-            Items: "shop_items | Shop/Items",
-            editCurrency: "shop_editcurrency | Shop/Edit/Currency",
+            Add: "old_shop_add | Old/Shop/Add",
+            RemoveItems: "old_shop_removeitems | Old/Shop/RemoveItems",
+            Items: "old_shop_items | Old/Shop/Items",
+            editCurrency: "old_shop_editcurrency | Old/Shop/Edit/Currency",
+            Root: "old_shop_root | Old/Shop/Root",
+            Edit: "old_shop_edit | Old/Shop/Edit",
+            Buy: "old_shop_buy | Old/Shop/Buy",
+            EditItems: "old_shop_edit_items | Old/Shop/Edit/Items"
+        },
+        NewShop: {
+            BuyItem: "shop_buyitem | Shop/BuyItem",
             Root: "shop_root | Shop/Root",
-            Edit: "shop_edit | Shop/Edit",
-            Buy: "shop_buy | Shop/Buy",
-            EditItems: "shop_edit_items | Shop/Edit/Items"
+            ViewCategory: "shop_viewcategory | Shop/ViewCategory",
+            Admin: "shop_admin | Shop/Admin",
+            EditCategory: 'shop_admin_editcategory | Shop/Admin/EditCategory',
+            EditItem: 'shop_admin_edititem | Shop/Admin/EditItem'
         },
         Ranks: {
             Add: "ranks_add | Ranks/Add",
@@ -148,7 +166,7 @@ export default {
         }
     },
     info: {
-        version: "0.1.5.1",
+        version: "0.1.6",
         name: "Blossom Essentials",
         authors: [
             { name: "FruitKitty", icon: "icons/FruitKitty.png", description: "Made the addon" },

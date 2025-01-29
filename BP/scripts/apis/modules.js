@@ -10,11 +10,13 @@ class moduleAPI {
         this.chatranks = this.kv.get('chatRanks')
         this.tpa = this.kv.get('tpaRequests')
         this.tpaUI = this.kv.get('tpawithUI')
+        this.chatPrefix = this.kv.get('chatPrefix')
         if(this.binding === undefined) this.set('binding', true)
         if(this.platformtags === undefined) this.set('platform', true);
         if(this.chatranks === undefined) this.set('chatRanks', true)
         if(this.tpaUI === undefined) this.set('tpawithUI', true);
         if(this.tpa === undefined) this.set('tpaRequests', true);
+        if(this.chatPrefix == undefined) this.set('chatPrefix', '-')
         this.updateAll();
     }
     updateAll() {
@@ -23,6 +25,7 @@ class moduleAPI {
         this.chatranks = this.kv.get('chatRanks')
         this.tpa = this.kv.get('tpaRequests')
         this.tpaUI = this.kv.get('tpawithUI')
+        this.chatPrefix = this.kv.get('chatPrefix')
     }
     sdp(pr, vl) {
         mc.world.setDynamicProperty(`${pr}`, vl)

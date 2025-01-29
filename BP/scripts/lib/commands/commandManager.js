@@ -1,10 +1,11 @@
 import { system } from "@minecraft/server";
 import { prismarineDb } from "../prismarinedb";
 import { parseCommand } from "./parseCommand";
+import modules from "../../apis/modules";
 
 class CommandManager {
     constructor() {
-        this.prefix = "-";
+        this.prefix = modules.get('chatPrefix');
         this.cmds = prismarineDb.table("Commands")
         this.subcmds = prismarineDb.table("SubCommands")
         this.cmds.clear()

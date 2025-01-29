@@ -41,13 +41,15 @@ class sidebarLines {
     addLine(text, sidebarID) {
         let sd = sidebar.getSidebar(sidebarID)
         if (!sd) return false;
+        let id = generateUUID()
         sd.data.lines.push({
             text,
-            id: generateUUID(),
+            id,
             updatedAt: Date.now()
         })
         this.db.overwriteDataByID(sd.id, sd.data)
         sidebar.reload()
+        return id
     }
     editLine(id, text, sidebarID) {
         let sd = sidebar.getSidebar(sidebarID)

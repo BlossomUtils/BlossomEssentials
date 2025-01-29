@@ -6,6 +6,8 @@ import './credits'
 import './main'
 import './moderation'
 import './modules'
+import './announcements/index'
+import './prefix'
 import './extra'
 
 mc.world.afterEvents.itemUse.subscribe((e) => {
@@ -21,6 +23,9 @@ uiManager.addUI(config.uiNames.Config.Root, "Admin Main", (player)=>{
     form.button(`§dWelcome!\n§7${config.info.name} v${config.info.version}`, "textures/blocks/cherry_leaves", (player)=>{})
     form.button(`§dMain Settings\n§7Configuration`, "textures/items/settings.png", (player)=>{
         uiManager.open(player, config.uiNames.Config.Main)
+    })
+    form.button(`§dAnnouncements\n§7Send an announcement`, "textures/azalea_icons/Chat.png", (player)=>{
+        uiManager.open(player, config.uiNames.Config.Announcements.Root)
     })
     form.button(`§dExtra Settings\n§7More configuration`, "textures/azalea_icons/10.png", (player)=>{
         uiManager.open(player, config.uiNames.Config.Extra)

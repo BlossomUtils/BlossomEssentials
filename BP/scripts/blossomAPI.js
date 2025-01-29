@@ -4,6 +4,8 @@ import customCommands from './apis/customCommands';
 import homeAPI from './apis/homeAPI';
 import { bapi } from './apis/blossom';
 
+
+let developer = true;
 function betterArgs(myString) {
     var myRegexp = /[^\s"]+|"([^"]*)"/gi;
     var myArray = [];
@@ -20,7 +22,9 @@ function betterArgs(myString) {
 
 
 mc.system.afterEvents.scriptEventReceive.subscribe((e) =>{
-    console.log(`Event Received: ID=${e.id}, Message=${e.message}`);
+    if(developer == true) {
+        console.log(`Event Received: ID=${e.id}, Message=${e.message}`);
+    }
     if(e.id === "blossom:findFirst") {
         let args = betterArgs(e.message);
         let table = prismarineDb.table(args[0])

@@ -6,6 +6,7 @@ import customCommands from "../../apis/customCommands";
 uiManager.addUI(config.uiNames.CustomCommands.EditCmds, "Custom Commands root", (player)=>{
     let form = new ActionForm();
     let cmds = customCommands.db.findDocuments()
+    
     form.title("§dCustom Commands")
     form.button(`§cBack\n§7[ Go back ]`, "textures/azalea_icons/2.png", (player)=>{
         uiManager.open(player, config.uiNames.CustomCommands.Root)

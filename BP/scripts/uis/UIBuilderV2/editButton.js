@@ -13,7 +13,7 @@ uiManager.addUI(config.uiNames.UIBuilderV2.EditButton, "UI builder v2 root", (pl
         uiManager.open(player, config.uiNames.UIBuilderV2.EditButtons, ui)
     })
     form.button(`§dEdit Icon\n§7Edit button icon`, button.icon ? button.icon : null, (player)=>{
-        uiManager.open(player, config.uiNames.IconViewer, "azalea_icons", ui, button)
+        uiManager.open(player, config.uiNames.IconViewer, "azalea_icons", 'uiBuilder', ui, button)
     })
     form.button("§dEdit Button\n§7Edit this button", `textures/azalea_icons/GUIMaker/FormsV2.png`, (player)=>{
         uiManager.open(player, config.uiNames.UIBuilderV2.AddButton, ui, button)

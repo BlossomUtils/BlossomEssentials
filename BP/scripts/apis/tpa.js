@@ -3,6 +3,7 @@ import { MessageFormData } from "@minecraft/server-ui";
 import playerAPI from "./playerAPI";
 import modules from "./modules";
 import commandManager from "../lib/commands/commandManager";
+import { world } from "@minecraft/server";
 
 class tpaAPI {
     constructor() {
@@ -14,7 +15,8 @@ class tpaAPI {
         this.db.insertDocument({
             loc: toplr.location,
             toname: toplr.name,
-            name: plr.name
+            name: plr.name,
+            dimension: toplr.dimension.id
         })
         if(modules.tpaUI === true) {
             this.triggerUI(toplr, plr.name)
@@ -60,10 +62,8 @@ class tpaAPI {
         if (!rq) return "Request does not exist";
         let rqp = rq.data.name;
         let player = playerAPI.verify(rqp)
-        player.teleport({
-            x: rq.data.loc.x,
-            y: rq.data.loc.y,
-            z: rq.data.loc.z
+        player.teleport(rq.data.loc, {
+            dimension: world.getDimension(`${rq.data.dimension}`)
         })
         this.db.deleteDocumentByID(rq.id)
         return true;

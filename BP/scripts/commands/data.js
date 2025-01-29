@@ -8,12 +8,16 @@ commandManager.addCommand("sidebardata", { description: "Get sidebar data" }, ({
 
     msg.sender.sendMessage(`${JSON.stringify(sidebar.db.findDocuments())}`)
 })
-commandManager.addCommand(`data`, { description: "Get everything in the DB" }, ({msg})=>{
+commandManager.addCommand(`data`, { description: "Get everything in the DB" }, ({msg,args})=>{
     if(!msg.sender.hasTag(`developer`)) return;
-
+    if(!args) {
     world.getDynamicPropertyIds().forEach((id) => {
         const value = world.getDynamicProperty(id);
         msg.sender.sendMessage(`${id}, ${value}`)
       });
-    
+    }
+    if(args) {
+        let dp = world.getDynamicProperty(`${args.join(' ')}`)
+        msg.sender.sendMessage(`${dp}`)
+    }
 })

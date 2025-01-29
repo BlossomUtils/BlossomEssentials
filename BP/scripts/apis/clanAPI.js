@@ -1,3 +1,4 @@
+import { world } from '@minecraft/server';
 import { prismarineDb } from '../lib/prismarinedb'
 import playerStorage from './playerStorage';
 
@@ -5,6 +6,19 @@ class clanAPI {
     constructor() {
         this.db = prismarineDb.table('clans')
         this.inviteDb = prismarineDb.table('clans_inviteDb')
+        this.migrate()
+    }
+    migrate() {
+        for (const doc of this.db.findDocuments()) {
+            if(!doc.data.base.dimension) {
+                doc.data.base = {loc: doc.data.base.loc, dimension: 'minecraft:overworld'}
+                this.db.overwriteDataByID(doc.id, doc.data)
+            }
+            if(!typeof doc.data.base === 'object') {
+                doc.data.base = {loc: doc.data.base, dimension: 'minecraft:overworld'}
+                this.db.overwriteDataByID(doc.id, doc.data)
+            }
+        }
     }
     getClanByID(id) {
         let clan = this.db.getByID(id)
@@ -69,18 +83,17 @@ class clanAPI {
         })
         return true;
     }
-    setClanBase(clanID, loc) {
+    setClanBase(clanID, loc, dimension) {
         let clan = this.getClanByID(clanID)
-        clan.data.base = loc
+        clan.data.base = {loc, dimension}
         this.db.overwriteDataByID(clan.id, clan.data)
     }
     teleportToClanBase(clanID, player) {
         let clan = this.getClanByID(clanID)
-        let loc = clan.data.base
-        player.teleport({
-            x: loc.x,
-            y: loc.y,
-            z: loc.z
+        let base = clan.data.base
+        this.migrate()
+        player.teleport(base.loc, {
+            dimension: world.getDimension(`${base.dimension}`)
         })
     }
     getInvites(player) {

@@ -1,4 +1,3 @@
 import './create'
-import './list'
-import './remove'
+import './view'
 import './root'

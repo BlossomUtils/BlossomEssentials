@@ -19,9 +19,11 @@ uiManager.addUI(config.uiNames.SidebarEditor.AddLine, "Sidebar editor add line",
 
         const [text] = res.formValues
         if (!line) {
-            lines.addLine(text, id)
+            let asd = lines.addLine(text, id)
+            uiManager.open(player, config.uiNames.SidebarEditor.EditLine, id, asd)
         } else {
             lines.editLine(lineID, text, id)
+            uiManager.open(player, config.uiNames.SidebarEditor.EditLine, id, lineID)
         }
     })
 })

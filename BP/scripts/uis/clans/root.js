@@ -48,7 +48,7 @@ uiManager.addUI(config.uiNames.Clans.root, "Clans root", (player) => {
                         uiManager.open(player, config.uiNames.Clans.invite)
                     })
                     form.button("§4Set clan base\n§7Set the base of the clan", null, (player) => {
-                        clanAPI.setClanBase(clan.id, player.location)
+                        clanAPI.setClanBase(clan.id, player.location, player.dimension.id)
                         player.success(`Set clan base to ${player.location.x}, ${player.location.y}, ${player.location.z}`)
                     })
                     form.button("§dDisband clan\n§7Disband the clan", null, (player) => {

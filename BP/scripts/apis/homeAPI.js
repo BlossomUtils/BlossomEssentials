@@ -13,6 +13,7 @@ class homeAPI {
         let docs = this.findAll();
         for(const doc of docs) {
             if(!doc.data.shared) doc.data.shared = []
+            if(!doc.data.dimension) doc.data.dimension = 'minecraft:overworld'
             this.db.overwriteDataByID(doc.id, doc.data)
         }
     }
@@ -29,6 +30,7 @@ class homeAPI {
             PlayerName: player.name,
             location: player.location,
             name,
+            dimension: player.dimension.id,
             shared: []
         })
     }
@@ -46,17 +48,29 @@ class homeAPI {
     removeshare(name, home, owner) {
         let doc = this.findByName(home, owner.name)
         if(!doc) return owner.error(`Can't find home`);
-        doc.data.shared.findIndex(p => p === name)
+        let index = doc.data.shared.findIndex(p => p === name)
         if(index === -1) return owner.error('Cant find player');
         doc.data.shared.splice(index, 1)
         this.db.overwriteDataByID(doc.id, doc.data)
     }
-    teleportTo(player, name) {
-        let doc = this.findByName(name, player.name)
+    getShared(name) {
+        let docs = this.db.findDocuments()
+        let homes = []
+        for(const doc of docs) {
+            for (const share of doc.data.shared) {
+                if(share == name) {
+                    homes.push(doc)
+                }
+            }
+        }
+        return homes;
+    }
+    teleportTo(player, name, owner) {
+        let doc = this.findByName(name, owner)
         player.runCommandAsync(`scriptevent blossom:homeTeleportedTo ${player.name} just teleported to the home "${name}"`)
-        if(!doc) return player.error(`Could not find home with name: ${name} under ${player.name}`);
+        if(!doc) return player.error(`Could not find home with name: ${name} under ${owner}`);
         player.teleport(doc.data.location, {
-            dimension: mc.world.getDimension("overworld")
+            dimension: mc.world.getDimension(doc.data.dimension)
         })
     }
     reload() {

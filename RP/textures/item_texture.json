@@ -1,15 +1,64 @@
 {
-	"resource_pack_name": "Custom Commands",
-	"texture_name": "atlas.items",
-	"texture_data": {
-		"admin": {
-			"textures": "textures/items/settings"
-		},
-		"floating_text_spawn_egg": {
-			"textures": "textures/items/floating_text_spawn_egg"
-		},
-		"redeem": {
-			"textures": "textures/items/redeem"
-		}
-	}
+  "resource_pack_name": "a",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "floating_text_spawn_egg": {
+      "textures": "textures/items/floating_text_spawn_egg"
+    },
+    "lock": {
+      "textures": "textures/items/lock"
+    },
+    "playershop": {
+      "textures": "textures/items/playershop"
+    },
+    "admin_ui": {
+      "textures": "textures/items/settings"
+    },
+    "key": {
+      "textures": "textures/items/cobblestone_key"
+    },
+    "server": {
+      "textures": "textures/items/server"
+    },
+    "plunger": {
+      "textures": "textures/items/plunger"
+    },
+    "warps": {
+      "textures": "textures/items/warps"
+    },
+
+    "azalea:crate_spawnegg": {
+      "textures": "textures/items/crate_spawnegg"
+    },
+    "azalea:key1": {
+      "textures": "textures/keys/1"
+    },
+    "azalea:key2": {
+      "textures": "textures/keys/2"
+    },
+    "azalea:key3": {
+      "textures": "textures/keys/3"
+    },
+    "azalea:key4": {
+      "textures": "textures/keys/4"
+    },
+    "azalea:key5": {
+      "textures": "textures/keys/5"
+    },
+    "azalea:key6": {
+      "textures": "textures/keys/6"
+    },
+    "azalea:key7": {
+      "textures": "textures/keys/7"
+    },
+    "azalea:key8": {
+      "textures": "textures/keys/8"
+    },
+    "azalea:key9": {
+      "textures": "textures/keys/9"
+    },
+    "azalea:key10": {
+      "textures": "textures/keys/10"
+    }
+  }
 }

@@ -8,7 +8,7 @@
 			}
 		},
 		"components": {
-			"minecraft:icon": "admin",
+			"minecraft:icon": "admin_ui",
 			"minecraft:display_name": {
 				"value": "§d§lConfig UI"
 			}

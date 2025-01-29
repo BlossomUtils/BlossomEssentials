@@ -3,7 +3,7 @@ import { prismarineDb } from "../lib/prismarinedb";
 import config from "../apis/config";
 import playerStorage from "../apis/playerStorage";
 
-commandManager.addCommand("help", {description: `Get help with ${config.info.name}`, category: "Help", format: `-help`}, ({msg,args})=>{
+commandManager.addCommand("help", {description: `Get help with ${config.info.name}`, category: "Help"}, ({msg,args})=>{
     let commands = commandManager.cmds.findDocuments(null);
     let commandData = {};
     for(const command of commands) {

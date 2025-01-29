@@ -24,7 +24,7 @@ commandManager.addCommand("shop", {description:"Open the shop", category:"Player
             player.location.z !== initialLocation.z) {
 
             system.clearRun(interval);
-            uiManager.open(player, config.uiNames.Shop.Items)
+            uiManager.open(player, config.uiNames.NewShop.Root)
         }
     }, 1);
 })

@@ -1,4 +1,7 @@
 import { world } from "@minecraft/server";
+import emojis from './emojis'
+import { getTPS } from "./format/tps";
+import { getPlayers } from "./format/online";
 
 class BlossomFormatting {
     #vars;
@@ -14,7 +17,7 @@ class BlossomFormatting {
         for (const variable in this.#vars) {
             varis.push(variable)
         }
-        return varis.join('\n- ')
+        return varis.join(', ')
     }
     getName(player) {
         return player.name
@@ -27,7 +30,7 @@ class BlossomFormatting {
             }
             return null;
         }
-    
+
         let value = extractBracketValue(text);
         let objective;
         let newLine = text;
@@ -35,30 +38,48 @@ class BlossomFormatting {
         this.#vars.player = this.getName
         this.#vars.name = this.getName
         this.#vars.username = this.getName
-    
-        if (value) { 
-            if(value == 'vars') return newLine.replace(/{{(.*?)}}/, this.getVars());
-            objective = world.scoreboard.getObjective(value);
-            if (objective) {
-                if (objective.hasParticipant(player)) {
-                    const score = objective.getScore(player);
-                    newLine = newLine.replace(/{{(.*?)}}/, score);
-                } else {
-                    newLine = newLine.replace(/{{(.*?)}}/, 0);
+        this.#vars.tps = getTPS
+        this.#vars.online = getPlayers
+        if(text.includes(':')) {
+            let emojisUsed = newLine.match(/:([a-z0-9_-]+):/g) || [];
+            for(const emoji of emojisUsed) {
+                if(emojis[emoji.substring(1).slice(0,-1)]) {
+                    newLine = newLine.replaceAll(emoji, emojis[emoji.substring(1).slice(0,-1)]);
                 }
             }
         }
-    
+
+        if (value) {
+            if (value === 'vars') {
+                return newLine.replaceAll(new RegExp(`{{(.*?)}}`, `g`), this.getVars());
+            }
+            const allObjectives = world.scoreboard.getObjectives();
+        
+            allObjectives.forEach((obj) => {
+                let score = 0;
+                if (obj.hasParticipant(player)) {
+                    score = obj.getScore(player.scoreboardIdentity);
+                } else {
+                    score = 0
+                }
+            
+                const objectiveName = obj.id
+                newLine = newLine.replaceAll(new RegExp(`{{${objectiveName}}}`, 'g'), score);
+            });
+            return newLine.replaceAll(new RegExp(`{{(.*?)}}`, `g`), 0);
+        }
+        
+
         for (const variable in this.#vars) {
             if (text.includes(`<${variable}>`)) {
                 newLine = newLine.replaceAll(`<${variable}>`, this.#vars[variable](player));
             }
 
         }
-    
+
         return newLine;
     }
-    
+
 }
 
 export default new BlossomFormatting();
