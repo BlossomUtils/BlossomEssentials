@@ -67,6 +67,7 @@ class homeAPI {
     }
     teleportTo(player, name, owner) {
         let doc = this.findByName(name, owner)
+        if(player.getDynamicProperty('inCombat') == true) return player.error('In combat')
         player.runCommandAsync(`scriptevent blossom:homeTeleportedTo ${player.name} just teleported to the home "${name}"`)
         if(!doc) return player.error(`Could not find home with name: ${name} under ${owner}`);
         player.teleport(doc.data.location, {

@@ -34,6 +34,17 @@ uiManager.addUI(config.uiNames.NewShop.EditCategory, 'Edit category', (player, i
     form.button(`§dEdit Icon\n§7Edit this category's icon`, cat.data.icon ? cat.data.icon : null, (player) => {
         uiManager.open(player, config.uiNames.IconViewer, 'azalea_icons', 'shop_category', cat.id)
     })
+    form.button(`§dEdit Required Tag\n§7Edit Required tag to view`, "textures/azalea_icons/11.png", (player)=>{
+        let mf = new ModalForm()
+        mf.title('Edit required tag')
+        mf.textField(`Required Tag`, 'Keep blank for no required tag', cat.data.requiredTag)
+        mf.show(player, false, (player,res)=>{
+            let [rq] = res.formValues
+            if(!rq) return form.show(player), shop.editRequiredTag(id,null);
+            shop.editRequiredTag(id,rq)
+            form.show(player)
+        })
+    })
     form.button(`§dEdit Items\n§7Edit this category's items`, 'textures/azalea_icons/EditShop', (player) => {
         function parseItemID(id) {
             let text = id.split(':')[1];
@@ -52,14 +63,14 @@ uiManager.addUI(config.uiNames.NewShop.EditCategory, 'Edit category', (player, i
                 f.show(player)
             })
             for(const item of items) {
-                f2.button(`§b${item[0].nameTag ? item[0].nameTag : parseItemID(item[0].typeId)} x${item[0].amount}\n§7${item[0].typeId}`, null, (player)=>{
+                f2.button(`§b${item[0].nameTag ? item[0].nameTag : parseItemID(item[0].typeId)}\n§7${item[0].typeId}`, null, (player)=>{
                     let f3 = new ModalForm();
                     f3.title('Select Price')
                     f3.textField('Item Price', 'Price of item.. Example: 500', null)
                     f3.show(player, false, (player,res)=>{
                         let price = res.formValues[0]
                         if(!isNumeric(price)) return player.error('Must be a number')
-                        shop.addItem(item[0].typeId, item[0].typeId, cat.id, price)
+                        shop.addItem(item[0].typeId, item[0].nameTag ? item[0].nameTag : parseItemID(item[0].typeId), cat.id, price)
                     })
                 })
             }

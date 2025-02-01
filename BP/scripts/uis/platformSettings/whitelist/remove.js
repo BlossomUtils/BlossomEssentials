@@ -6,6 +6,7 @@ import config from "../../../apis/config";
 uiManager.addUI(config.uiNames.platformSettings.Whitelist.Remove, "Platform settings root", (player) => {
     let form = new ActionForm();
     form.title("Platform Whitelist");
+    form.button('Close')
     for (const doc of platformAPI.getDb()) {
         form.button(`§c${doc.data.name}\n§7[ Remove ]`, null, (player) => {
             platformAPI.removeFromWhitelist(doc.data.name)

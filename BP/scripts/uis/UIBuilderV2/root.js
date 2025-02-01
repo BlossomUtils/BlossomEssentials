@@ -47,7 +47,7 @@ tabbedUI.registerTab('\uE540 Tabbed', (player) => {
     for (const tabui of tabbedUIBuilder.db.findDocuments()) {
         buttons.push({
             text: `§a${tabui.data.id}\n§7Edit this tab ui`,
-            iconPath: null,
+            iconPath: 'textures/azalea_icons/TabUI',
             callback(player) {
                 uiManager.open(player, config.uiNames.UIBuilderV2.Tabbed.View, tabui.data.id)
             }

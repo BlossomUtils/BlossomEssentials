@@ -13,6 +13,7 @@ import './sidebar/index'
 import './newShop/index'
 import './economy/index'
 import './moderation/index'
+import './sell/index'
 import './tpa/request'
 // import './test'
 

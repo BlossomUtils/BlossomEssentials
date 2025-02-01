@@ -12,5 +12,6 @@ uiManager.addUI(config.uiNames.NewShop.BuyItem, 'Buy item', (player, id, catid) 
     form.show(player).then((res) => {
         let [quantity] = res.formValues;
         let asd = shop.buy(player, item.id, cat.data.currency, quantity)
+        if(!asd) return player.error('Not enough money')
     })
 })

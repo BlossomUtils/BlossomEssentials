@@ -12,5 +12,8 @@ uiManager.addUI(config.uiNames.Config.Extra, "Extra Settings UI", (player) => {
     form.button(`§dEconomy Settings\n§7Edit the economy`, 'textures/azalea_icons/AddItem.png', (player) => {
         uiManager.open(player, config.uiNames.Economy.Root);
     });
+    form.button(`§dCombat Log\n§7Edit combat log stuff`, 'textures/items/diamond_sword', (player) => {
+        uiManager.open(player, config.uiNames.Config.CombatLog);
+    });
     form.show(player);
 });

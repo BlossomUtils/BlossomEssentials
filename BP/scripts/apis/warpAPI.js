@@ -36,6 +36,7 @@ class warpAPI {
     tpTo(name, player) {
         let doc = this.getFromName(name)
         if(!doc) return player.error("No warp found");
+        if(player.getDynamicProperty('inCombat') == true) return player.error('In combat')
         function teleport() {
             player.teleport(doc.data.location, {
                 dimension: mc.world.getDimension(`${doc.data.dimension}`)

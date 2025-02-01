@@ -11,6 +11,7 @@ class tpaAPI {
     }
     request(plr, toname) {
         let toplr = playerAPI.verify(toname)
+        if(plr.getDynamicProperty('inCombat') == true) return plr.error('In combat')
         if (!toplr) return "Player is not in-game";
         this.db.insertDocument({
             loc: toplr.location,
@@ -58,6 +59,7 @@ class tpaAPI {
         return true;
     }
     accept(plr) {
+        if(plr.getDynamicProperty('inCombat') == true) return plr.error('In combat')
         let rq = this.db.findFirst({ toname: plr.name })
         if (!rq) return "Request does not exist";
         let rqp = rq.data.name;

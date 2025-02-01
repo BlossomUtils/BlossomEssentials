@@ -2,8 +2,9 @@ import * as mc from '@minecraft/server'
 
 /**
  * Changing any of these values can break people's custom UIs, especially if you change the non-string one.
+ * + It could break anything that opens the uis because yes
+ * Changing the non-string value will also break root uis and the ui itself so DONT CHANGE >:3
  */
-// why did i need to remind myself of this lol 😭
 
 export default {
     uiNames: {
@@ -15,6 +16,7 @@ export default {
             Modules: "blossom_config_modules | Blossom/Config/Modules",
             Extra: "blossom_config_extra | Blossom/Config/Extra",
             Moderation: 'blossom_config_moderation | Blossom/Config/Moderation',
+            CombatLog: 'blossom_config_combatLog | Blossom/Config/CombatLog',
             Announcements: {
                 Root: 'blossom_config_announcements | Blossom/Config/Announcements',
                 Options: 'blossom_config_announcements_options | Blossom/Config/Announcements/Options',
@@ -73,6 +75,14 @@ export default {
             Edit: "old_shop_edit | Old/Shop/Edit",
             Buy: "old_shop_buy | Old/Shop/Buy",
             EditItems: "old_shop_edit_items | Old/Shop/Edit/Items"
+        },
+        Sell: {
+            SellItem: "sell_item | Sell/Item",
+            Root: "sell_root | Sell/Root",
+            ViewCategory: "sell_viewcategory | Sell/ViewCategory",
+            Admin: "sell_admin | Sell/Admin",
+            EditCategory: 'sell_admin_editcategory | Sell/Admin/EditCategory',
+            EditItem: 'sell_admin_edititem | Sell/Admin/EditItem'
         },
         NewShop: {
             BuyItem: "shop_buyitem | Shop/BuyItem",
@@ -166,7 +176,8 @@ export default {
         }
     },
     info: {
-        version: "0.1.6",
+        version: "0.1.7",
+        versionNumeric: [0, 1, 7],
         name: "Blossom Essentials",
         authors: [
             { name: "FruitKitty", icon: "icons/FruitKitty.png", description: "Made the addon" },

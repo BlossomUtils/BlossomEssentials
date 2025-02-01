@@ -9,6 +9,7 @@ import './modules'
 import './announcements/index'
 import './prefix'
 import './extra'
+import './combatLog'
 
 mc.world.afterEvents.itemUse.subscribe((e) => {
     if (e.itemStack.typeId === config.details.configItem) {

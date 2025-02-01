@@ -47,6 +47,11 @@ class Shop {
         this.db.overwriteDataByID(id,item.data)
         return true;
     }
+    editRequiredTag(id,val) {
+        let cat = this.get(id)
+        cat.data.requiredTag = val
+        this.db.overwriteDataByID(id, cat.data)
+    }
     editCategory(id,name,description,currency,icon=null) {
         let cat = this.get(id)
         if(!cat) return false;

@@ -6,6 +6,7 @@ import config from '../config'
 import { getPack } from '../../icons/iconPack'
 import UIBuilderV2 from '../UIBuilderV2'
 import shop from '../shop'
+import sell from '../sell'
 
 uiManager.addUI(config.uiNames.IconViewer, "View icons", (player, set = "azalea_icons", type = null, ui = null, button = null) => {
     let form = new ChestFormData("54")
@@ -39,6 +40,16 @@ uiManager.addUI(config.uiNames.IconViewer, "View icons", (player, set = "azalea_
                     let item = shop.get(ui)
                     shop.editItem(ui,item.data.display,item.data.price,icon.path)
                     uiManager.open(player, config.uiNames.NewShop.EditItem, ui, button)
+                }
+                if(type == 'sell_item') {
+                    let item = sell.get(ui)
+                    sell.editItem(ui,item.data.display,item.data.price,icon.path)
+                    uiManager.open(player, config.uiNames.Sell.EditItem, ui, button)
+                }
+                if(type == 'sell_category') {
+                    let item = sell.get(ui)
+                    sell.editCategory(ui,item.data.name,item.data.currency,item.data.description,null,icon.path)
+                    uiManager.open(player, config.uiNames.Sell.EditCategory, ui)
                 }
             }
         );
