@@ -12,7 +12,7 @@ let deadCache = []
 let cancelledJobs = []
 
 for (const player of world.getPlayers()) {
-    player.setDynamicProperty('inCombat', false)
+    player.removeTag('blossom:combat')
 }
 
 world.afterEvents.entityHitEntity.subscribe(async e => {
@@ -29,8 +29,8 @@ world.afterEvents.entityHitEntity.subscribe(async e => {
                 cancelledJobs.push(j.id);
             }
         }
-        de.setDynamicProperty('inCombat', true);
-        he.setDynamicProperty('inCombat', true);
+        de.addTag('blossom:combat')
+        he.addTag('blossom:combat')
 
         let job = system.run(async () => {
             jobs.push({id:job,he:he.id,de:de.name,heName:he.name})
@@ -50,8 +50,8 @@ world.afterEvents.entityHitEntity.subscribe(async e => {
             cancelledJobs = cancelledJobs.filter(j => j.id !== job);
             jobs = jobs.filter(j => j.id !== job);
             if(!cancelled) {
-            de.setDynamicProperty('inCombat', false);
-            he.setDynamicProperty('inCombat', false);
+            de.removeTag('blossom:combat')
+            he.removeTag('blossom:combat')
             }
         });
         
@@ -66,7 +66,7 @@ world.beforeEvents.playerLeave.subscribe(e => {
     if (!modules.get('combatKillLeave')) return;
     if (!modules.get('combatLog')) return;
     const player = e.player
-    if (!player.getDynamicProperty('inCombat')) return;
+    if (!player.hasTag('blossom:combat')) return;
     const id = player.id
     const inventory = player.getComponent(`inventory`).container;
     const equippable = player.getComponent(`equippable`);
@@ -86,7 +86,7 @@ world.beforeEvents.playerLeave.subscribe(e => {
         if (j.he == id) {
             let de = world.getPlayers().find(_ => _.name == j.de)
             if (!de) continue;
-            de.setDynamicProperty('inCombat', false)
+            de.removeTag('blossom:combat')
         }
     }
     if(modules.get('keepInventory')) return;
@@ -116,7 +116,8 @@ world.beforeEvents.playerLeave.subscribe(e => {
 
 world.afterEvents.playerSpawn.subscribe(e => {
     let player = e.player
-    if (deadCache.find(_ => _ == player.id)) {
+    if(!e.initialSpawn) return;
+    if (player.hasTag('blossom:combat')) {
         if(!modules.get('keepInventory')) player.runCommand('clear @s')
         player.kill()
         deadCache.splice(deadCache.findIndex(_ => _ == player.id), 1)

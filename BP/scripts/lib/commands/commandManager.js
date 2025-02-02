@@ -11,8 +11,8 @@ class CommandManager {
         this.cmds.clear()
         this.subcmds.clear()
     }
-    changecommandManagerPrefix(newPrefix) {
-        this.prefix = `${newPrefix}`;
+    update() {
+        this.prefix = modules.get('chatPrefix')
     }
     addCommand(name, data, callback) {
         let cmd = this.cmds.findFirst({name});

@@ -75,11 +75,13 @@ class sidebarAPI {
             name,
             lines: []
         })
+        lines.reload()
     }
     deleteSidebar(name) {
         let doc = this.db.findFirst({ name })
         if (!doc) throw new Error("No sidebar found");
         this.db.deleteDocumentByID(doc.id)
+        lines.reload()
     }
     reload() {
         this.db = prismarineDb.table("sidebar")

@@ -16,6 +16,7 @@ import './commands/index'
 import './apis/openers/index'
 import './combatLogging'
 import './test'
+import './xray'
 import './apis/sidebarDisplay'
 import config from './apis/config'
 import moduleAPI from './apis/modules'
@@ -63,6 +64,24 @@ commandManager.addCommand("emojis", { description: "Get a list of emojis", categ
         }
     }
     msg.sender.sendMessage([text.map(_ => _.join('        ')).join('\n§r'), '', '§aTo use emojis, do :emoji_name: in chat. Example:   :coins:'].join('\n§r'))
+})
+
+mc.world.beforeEvents.playerInteractWithEntity.subscribe((e) => {
+    if(e.itemStack) {
+        if(e.itemStack.typeId == 'blossom:floating_text_editor' && e.target.typeId === 'blossom:floating_text') {
+            if(e.target.getTags().find(_=>_.startsWith('lb:'))) return;
+            mc.system.run(() => {
+                let form = new ui.ModalFormData();
+            form.title('Code Editor')
+            form.textField('Code', 'Code', e.target.nameTag)
+            form.show(e.player).then((res) => {
+                let text = res.formValues[0]
+                e.target.nameTag = text.replaceAll('/n', `\n`)
+            })
+            })
+            
+        }
+    }
 })
 
 mc.world.afterEvents.playerSpawn.subscribe((plrev) => {

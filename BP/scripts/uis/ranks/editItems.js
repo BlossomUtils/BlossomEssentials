@@ -12,7 +12,7 @@ uiManager.addUI(config.uiNames.Ranks.EditItems, "Ranks UI", (player) => {
         uiManager.open(player, config.uiNames.Ranks.Root)
     });
     for (const doc of list) {
-        form.button(`§d${doc.data.tag}\n§7[ Click to edit ]`, null, (player) => {
+        form.button(`§d${doc.data.tag}\n§7[ Click to edit ]`, 'textures/blossom_icons/editrank', (player) => {
             uiManager.open(player, config.uiNames.Ranks.Edit, doc.data.tag, doc.data.display, doc.data.nameColor, doc.data.chatColor)
         });
     }

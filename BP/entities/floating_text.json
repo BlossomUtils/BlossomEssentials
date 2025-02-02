@@ -33,7 +33,7 @@
 			},
 			"minecraft:fire_immune": true,
 			"minecraft:scale": {
-				"value": 0
+				"value": 0.4
 			},
 			"minecraft:knockback_resistance": {
 				"value": 1

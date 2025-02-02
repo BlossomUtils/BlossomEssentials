@@ -8,6 +8,9 @@
     "lock": {
       "textures": "textures/items/lock"
     },
+    "floatingtext": {
+      "textures": "textures/items/floatingtext"
+    },
     "playershop": {
       "textures": "textures/items/playershop"
     },

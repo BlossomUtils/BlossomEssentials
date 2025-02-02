@@ -3,7 +3,7 @@ import './send'
 import './config'
 import { world } from '@minecraft/server'
 import modules from '../../../apis/modules'
-import { ActionForm } from '../../../lib/prismarinedb'
+import { ActionFormData } from '@minecraft/server-ui'
 
 function announcement(text) {
     if(modules.get('announcementType') === 'chat') return world.sendMessage(`§d§lANNOUNCEMENT§f §8>> §f§7${text}`);
@@ -13,12 +13,21 @@ function announcement(text) {
         }
     }
     if(modules.get('announcementType') === 'ui') {
-        let form = new ActionForm();
+        let form = new ActionFormData();
         form.title('Announcement')
         form.body(`§d§lANNOUNCEMENT§f §8>> §f§7${text}`)
-        form.button('OK', null, (player)=>{})
+        form.button('OK')
         for(const plr of world.getPlayers()) {
-            form.show(plr)
+            function show() {
+                form.show(plr).then((res) => {
+                    if(res.selection == 0) return;
+                    if (!res.cancelled) {
+                        show();
+                    }
+                });
+            }
+            
+            show();
         }
     }
 }

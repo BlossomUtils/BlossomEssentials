@@ -15,6 +15,6 @@ uiManager.addUI(config.uiNames.Sell.SellItem, 'sellitem', (player,id,catid)=>{
         let q = res.formValues[0]
         let s = sell.sell(player, id, catid, q)
         if(!s) return player.error('An error occured');
-        player.success('Sold item for ' + item.data.price + ' ' + prismarineDb.economy.getCurrency(item.data.currency).displayName)
+        player.success('Sold item for ' + item.data.price * q + ' ' + prismarineDb.economy.getCurrency(item.data.currency).displayName)
     })
 })

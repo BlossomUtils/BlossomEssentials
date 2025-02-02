@@ -11,7 +11,7 @@ class tpaAPI {
     }
     request(plr, toname) {
         let toplr = playerAPI.verify(toname)
-        if(plr.getDynamicProperty('inCombat') == true) return plr.error('In combat')
+        if(plr.hasTag('blossom:combat')) return player.error('In combat')
         if (!toplr) return "Player is not in-game";
         this.db.insertDocument({
             loc: toplr.location,
@@ -37,7 +37,7 @@ class tpaAPI {
         form.button2("Yes!");
         form.show(plr).then(res =>{
             if (res.canceled) return this.db.deleteDocumentByID(doc.id), plr.info('Cancelled request');
-
+            if(plr.hasTag('blossom:combat')) return player.error('In combat')
             switch (res.selection) {
                 case 0:
                     return this.db.deleteDocumentByID(doc.id), plr.info('Cancelled request');
@@ -59,7 +59,7 @@ class tpaAPI {
         return true;
     }
     accept(plr) {
-        if(plr.getDynamicProperty('inCombat') == true) return plr.error('In combat')
+        if(plr.hasTag('blossom:combat')) return player.error('In combat')
         let rq = this.db.findFirst({ toname: plr.name })
         if (!rq) return "Request does not exist";
         let rqp = rq.data.name;

@@ -2,6 +2,7 @@ import { ModalFormData } from "@minecraft/server-ui";
 import config from "../../apis/config";
 import uiManager from "../../uiManager";
 import modules from "../../apis/modules";
+import commandManager from "../../lib/commands/commandManager";
 
 uiManager.addUI(config.uiNames.Config.Prefix, 'change prefix', (player)=>{
     let form = new ModalFormData();
@@ -11,5 +12,6 @@ uiManager.addUI(config.uiNames.Config.Prefix, 'change prefix', (player)=>{
         let [pr] = res.formValues
         if(!pr) return player.error('Nothing entered idot');
         modules.set('chatPrefix', pr)
+        commandManager.update()
     })
 })

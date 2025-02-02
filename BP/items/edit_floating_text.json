@@ -1,0 +1,17 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:item": {
+		"description": {
+			"identifier": "blossom:floating_text_editor",
+			"menu_category": {
+				"category": "nature"
+			}
+		},
+		"components": {
+			"minecraft:icon": "floatingtext",
+			"minecraft:display_name": {
+				"value": "§d§lFloating Text Editor"
+			}
+		}
+	}
+}

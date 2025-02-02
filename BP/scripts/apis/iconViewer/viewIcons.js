@@ -7,6 +7,7 @@ import { getPack } from '../../icons/iconPack'
 import UIBuilderV2 from '../UIBuilderV2'
 import shop from '../shop'
 import sell from '../sell'
+import voting from '../voting'
 
 uiManager.addUI(config.uiNames.IconViewer, "View icons", (player, set = "azalea_icons", type = null, ui = null, button = null) => {
     let form = new ChestFormData("54")
@@ -50,6 +51,11 @@ uiManager.addUI(config.uiNames.IconViewer, "View icons", (player, set = "azalea_
                     let item = sell.get(ui)
                     sell.editCategory(ui,item.data.name,item.data.currency,item.data.description,null,icon.path)
                     uiManager.open(player, config.uiNames.Sell.EditCategory, ui)
+                }
+                if(type == 'vote') {
+                    let item = voting.get(ui)
+                    voting.edit(item.id,item.data.title,item.data.body,icon.path)
+                    uiManager.open(player, config.uiNames.Voting.Edit, ui)
                 }
             }
         );

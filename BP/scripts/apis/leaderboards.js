@@ -35,6 +35,18 @@ class Leaderboards {
         }
         return true;
     }
+    edit(id,firstline,offlineDisabled,theme) {
+        let lb = this.db.getByID(id)
+        if(!lb) return;
+        let data = lb.data
+        data.firstLine = firstline
+        data.offlineDisabled = offlineDisabled
+        data.theme = theme
+        this.db.overwriteDataByID(id, data)
+    }
+    getAll() {
+        return this.db.findDocuments();
+    }
     updateLeaderboards() {
         for (const lb of this.db.findDocuments()) {
             let data = lb.data
@@ -52,14 +64,13 @@ class Leaderboards {
             let lbtext = [];
             let obj = world.scoreboard.getObjective(data.scoreboard)
             if(!obj) continue;
-            lbtext.push(`---${obj.displayName ? obj.displayName : data.scoreboard}---`)
-            for(const plr of world.getPlayers()) {
-                let scbid = plr.scoreboardIdentity;
-                if(!scbid) continue;
-                if(!obj.hasParticipant(scbid)) obj.setScore(scbid, 0);
-                lbtext.push(`${plr.name}: ${obj.getScore(scbid) ? obj.getScore(scbid) : 0}`)
+            lbtext.push(`${data.firstLine ? data.firstLine : '---' + obj.displayName ? obj.displayName : data.scoreboard + '---'}`)
+            for(const o of obj.getScores().sort((a,b) => b - a)) {
+                if(data.offlineDisabled && o.participant.displayName == 'commands.scoreboard.players.offlinePlayerName') continue;
+
+                lbtext.push(`${o.participant.displayName.replaceAll('commands.scoreboard.players.offlinePlayerName', 'Offline Player')}: ${o.score}`)
             }
-            entity.nameTag = lbtext.join('\n§r')
+            entity.nameTag = lbtext.join(`\n§r${data.theme ? data.theme : ''}`)
         }
     }
 }

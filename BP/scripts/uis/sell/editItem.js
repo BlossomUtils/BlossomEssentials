@@ -28,5 +28,9 @@ uiManager.addUI(config.uiNames.Sell.EditItem, 'sell edit item', (player, id, cat
     form.button(`§dEdit Icon\n§7Edit this item's icon`, item.data.icon ? item.data.icon : null, (player) => {
         uiManager.open(player, config.uiNames.IconViewer, 'azalea_icons', 'sell_item', id, cat.id);
     })
+    form.button(`§cDelete\n§7Delete item from sell`, 'textures/azalea_icons/Delete', (player) => {
+        sell.remove(id)
+        uiManager.open(player, config.uiNames.Sell.EditCategory, catid)
+    })
     form.show(player)
 })

@@ -70,6 +70,7 @@ uiManager.addUI(config.uiNames.Sell.EditCategory, 'Edit Category', (player, id) 
         })
         for(const i of cat.data.items) {
             let item = sell.get(i)
+            if(!item) continue;
             f.button(`§b${item.data.display}\n§7${item.data.price} ${prismarineDb.economy.getCurrency(item.data.currency).displayName}`, item.data.icon ? item.data.icon : null, (player)=>{
                 uiManager.open(player, config.uiNames.Sell.EditItem, item.id, cat.id)
             })

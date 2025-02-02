@@ -22,7 +22,8 @@ export default {
                 Options: 'blossom_config_announcements_options | Blossom/Config/Announcements/Options',
                 Send: 'blossom_config_announcements_send | Blossom/Config/Announcements/Send'
             },
-            Prefix: 'blossom_change_prefix | Blossom/ChangePrefix'
+            Prefix: 'blossom_change_prefix | Blossom/ChangePrefix',
+            XRay: 'blossom_xrayconfig | Blossom/XrayConfig'
         },
         Homes: {
             Root: "homes_root | Homes/Root",
@@ -140,6 +141,22 @@ export default {
             Root: "economy_root | Economy/Root",
             Pay: "economy_pay | Economy/Pay"
         },
+        Events: {
+            Root: `events_root | Events/Root`,
+            Edit: `events_edit | Events/Edit`,
+            Add: `events_add | Events/Add`
+        },
+        Voting: {
+            Root: 'voting_root | Voting/Root',
+            View: 'voting_view | Voting/View',
+            Admin: 'voting_admin | Voting/Admin',
+            Start: 'voting_admin_start | Voting/Admin/Start',
+            Edit: 'voting_admin_edit | Voting/Admin/Edit'
+        },
+        Leaderboards: {
+            Root: 'leaderboards_root | Leaderboards/Root',
+            Edit: 'leaderboards_edit | Leaderboards/Edit'
+        },
         Moderation: {
             Root: "moderation_root | Moderation/Root",
             Warnings: {
@@ -176,12 +193,13 @@ export default {
         }
     },
     info: {
-        version: "0.1.7",
-        versionNumeric: [0, 1, 7],
+        version: "0.1.8",
+        versionNumeric: [0, 1, 8],
         name: "Blossom Essentials",
         authors: [
             { name: "FruitKitty", icon: "icons/FruitKitty.png", description: "Made the addon" },
-            { name: "TrashyKitty", icon: "icons/TrashyKitty.png", description: "Some APIs and PrismarineDB" }
+            { name: "TrashyKitty", icon: "icons/TrashyKitty.png", description: "Some APIs and PrismarineDB" },
+            {name: 'OxyDoxy444',description:'Icon teacher + beta tester'}
         ],
         documentation: "blossom.amethystdev.com"
     },

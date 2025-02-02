@@ -12,7 +12,7 @@ uiManager.addUI(config.uiNames.Ranks.Remove, "Ranks UI", (player) => {
         uiManager.open(player, config.uiNames.Ranks.Root)
     });
     for (const doc of list) {
-        form.button(`§d${doc.data.tag}\n§7[ Click to remove ]`, null, (player) => {
+        form.button(`§d${doc.data.tag}\n§7[ Click to remove ]`, 'textures/blossom_icons/delrank', (player) => {
             ranks.remove(doc.data.tag)
         });
     }

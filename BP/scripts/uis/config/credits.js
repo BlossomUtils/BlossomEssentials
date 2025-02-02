@@ -10,9 +10,6 @@ uiManager.addUI(config.uiNames.Config.Credits, "Credits UI", (player) => {
     form.button(`§cBack\n§7[ Go Back ]`, null, (player) => {
         uiManager.open(player, config.uiNames.Config.Root);
     });
-    if(config.info.versionNumeric[1] >= 2) {
-        authors.push({name: 'OxyDoxy444',description:'Icon maker'})
-    }
     for (const author of authors) {
         let icon = author.icon ? author.icon : "icons/icon.png"
         form.button(`§d${author.name}\n§7${author.description}`, `${icon}`, (player) => {

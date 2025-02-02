@@ -38,6 +38,9 @@ class sidebarLines {
         let sd = sidebar.getSidebar(sidebarID)
         return sd.data.lines.find(_ => _.id == id);
     }
+    reload() {
+        this.db = prismarineDb.table('sidebar')
+    }
     addLine(text, sidebarID) {
         let sd = sidebar.getSidebar(sidebarID)
         if (!sd) return false;
