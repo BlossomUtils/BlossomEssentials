@@ -90,7 +90,7 @@ class clanAPI {
     }
     teleportToClanBase(clanID, player) {
         let clan = this.getClanByID(clanID)
-        if(player.getDynamicProperty('inCombat') == true) return player.error('In combat')
+        if(player.hasTag('blossom:combat')) return player.error('In combat')
         let base = clan.data.base
         this.migrate()
         player.teleport(base.loc, {

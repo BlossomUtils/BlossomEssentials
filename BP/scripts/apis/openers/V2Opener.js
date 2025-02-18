@@ -12,7 +12,7 @@ class V2Opener {
         if (ui.layout == 3) pre = `§t§e§s§t§r`
 
         form.title(`${pre}${blossomFormatting.format(ui.name, plr)}`)
-        if (ui.body) form.body(ui.body);
+        if (ui.body) form.body(blossomFormatting.format(ui.body, plr));
         if (ui.buttons.length === 0) form.button(`Close UI`, `textures/azalea_icons/Delete.png`, (player) => { })
         for (const button of ui.buttons) {
             if(button.requiredTag && !plr.hasTag(button.requiredTag)) continue;

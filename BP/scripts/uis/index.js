@@ -17,6 +17,7 @@ import './moderation/index'
 import './voting/index'
 import './sell/index'
 import './events/index'
+import './dev/json.ui'
 import './tpa/request'
 // import './test'
 

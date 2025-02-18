@@ -6,7 +6,7 @@
       ]
     },
     "header": {
-      "name": "§d§lBlossom Essentials BP! §r§d- §ev0.1.8",
+      "name": "§d§lBlossom Essentials BP! §r§d- §ev0.1.8.3",
 
       "description": "§dMade with love by fruitkitty, Simple Essentials rewrite!",
       "min_engine_version": [
@@ -18,7 +18,7 @@
       "version": [
         0,
         1,
-        8
+        84
       ]
     },
     "modules": [
@@ -46,7 +46,7 @@
     "dependencies": [
       {
         "module_name": "@minecraft/server",
-        "version": "1.17.0-beta"
+        "version": "1.18.0-beta"
       },
       {
         "module_name": "@minecraft/server-ui",

@@ -9,7 +9,7 @@ world.beforeEvents.playerBreakBlock.subscribe((e) => {
     console.log(`${e.block.typeId}, ${e.player.name}`)
     if(e.block.typeId == 'minecraft:diamond_ore' || e.block.typeId == 'minecraft:ancient_debris' || e.block.typeId == 'minecraft:deepslate_diamond_ore') {
         for(const plr of world.getPlayers()) {
-            if(!plr.hasTag('admin')) return;
+            if(!plr.hasTag('admin')) continue;
             plr.sendMessage(`${modules.get(`xrayAlertMessage`).replaceAll('{plr}', e.player.name).replaceAll('{ore}', e.block.typeId)}`)
         }
     }

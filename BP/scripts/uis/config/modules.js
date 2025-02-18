@@ -9,7 +9,8 @@ let toggleOptions = [
     { display: "Binding", property: "binding", order: "1" },
     { display: "Platform Settings", property: "platform", order: "2" },
     { display: "TPA System with UI", property: "tpawithUI", order: "3" },
-    { display: "TPA System", property: "tpaRequests", order: "4" }
+    { display: "TPA System", property: "tpaRequests", order: "4" },
+    { display: "Sidebar", property: "sidebar", order: "5" }
 ]
 
 uiManager.addUI(config.uiNames.Config.Modules, "Change modules", (player) => {

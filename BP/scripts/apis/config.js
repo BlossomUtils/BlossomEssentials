@@ -183,7 +183,7 @@ export default {
             Players: {
                 Options: "moderation_players_options | Moderation/Players/Options",
                 Root: "moderation_players_root | Moderation/Players/Root"
-            }, 
+            },
         },
         TPA: {
             Request: "tpa_request | TPA/Request"
@@ -193,13 +193,13 @@ export default {
         }
     },
     info: {
-        version: "0.1.8",
-        versionNumeric: [0, 1, 8],
+        version: "0.1.8.3",
+        versionNumeric: [0, 1, 8, 3],
         name: "Blossom Essentials",
         authors: [
             { name: "FruitKitty", icon: "icons/FruitKitty.png", description: "Made the addon" },
             { name: "TrashyKitty", icon: "icons/TrashyKitty.png", description: "Some APIs and PrismarineDB" },
-            {name: 'OxyDoxy444',description:'Icon teacher + beta tester'}
+            { name: 'OxyDoxy444', description: 'Beta tester' }
         ],
         documentation: "blossom.amethystdev.com"
     },
@@ -207,6 +207,7 @@ export default {
         openLegacyCustomUI: "blossom:openlegacy",
         openV2CustomUI: "blossom:open",
         openMainUI: "blossom:openui",
+        openShort: "blossomgui:",
         configItem: "blossom:config"
     }
 }

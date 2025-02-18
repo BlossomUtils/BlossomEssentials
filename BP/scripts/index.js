@@ -132,6 +132,10 @@ mc.system.afterEvents.scriptEventReceive.subscribe(e => {
         let args = betterArgs(e.message);
         uiManager.open(e.sourceEntity, args[0], ...args.slice(1))
     }
+    if(e.id.startsWith(config.details.openShort)) {
+        let args = betterArgs(e.message);
+        uiManager.open(e.sourceEntity, e.id.replaceAll(config.details.openShort, ``), ...args)
+    }
     if (e.id == `blossom:run`) {
         commandManager.run(e)
     }

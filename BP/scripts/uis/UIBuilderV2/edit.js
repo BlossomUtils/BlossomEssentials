@@ -24,6 +24,7 @@ uiManager.addUI(config.uiNames.UIBuilderV2.Edit, "UI builder v2 edit", (player, 
         modal.show(player, false, (player, response)=>{
             ui.data = response.formValues[0] 
             UIBuilderV2.db.overwriteDataByID(ui.id, JSON.parse(ui.data))
+            uiManager.open(player, config.uiNames.UIBuilderV2.Edit, ui)
         })
     })
     form.button(`§cDelete\n§7Delete this UI`, null, player=>{

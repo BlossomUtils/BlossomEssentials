@@ -70,7 +70,7 @@ uiManager.addUI(config.uiNames.NewShop.EditCategory, 'Edit category', (player, i
                     f3.show(player, false, (player,res)=>{
                         let price = res.formValues[0]
                         if(!isNumeric(price)) return player.error('Must be a number')
-                        shop.addItem(item[0].typeId, item[0].nameTag ? item[0].nameTag : parseItemID(item[0].typeId), cat.id, price)
+                        shop.addItem(item[0].nameTag ? item[0].nameTag : parseItemID(item[0].typeId), item[0].typeId, cat.id, price)
                     })
                 })
             }
