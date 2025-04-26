@@ -1,8 +1,9 @@
-import { world } from "@minecraft/server";
+import { system, world } from "@minecraft/server";
 import modules from "./apis/modules";
 
-if(!modules.get(`xrayAlertMessage`)) modules.set(`xrayAlertMessage`, `{plr} has mined {ore}!`);
-if(modules.get(`xrayAlerts`) == undefined) modules.set(`xrayAlerts`, true);
+await system.waitTicks(10)
+if(!await modules.get(`xrayAlertMessage`)) modules.set(`xrayAlertMessage`, `{plr} has mined {ore}!`);
+if(await modules.get(`xrayAlerts`) == undefined) modules.set(`xrayAlerts`, true);
 
 world.beforeEvents.playerBreakBlock.subscribe((e) => {
     if(!modules.get('xrayAlerts')) return;

@@ -13,11 +13,11 @@ let toggleOptions = [
     { display: "Sidebar", property: "sidebar", order: "5" }
 ]
 
-uiManager.addUI(config.uiNames.Config.Modules, "Change modules", (player) => {
+uiManager.addUI(config.uiNames.Config.Modules, "Change modules", async (player) => {
     let modalForm = new ModalForm();
     modalForm.title("§t§e§s§t§dModules")
     for (const option of toggleOptions) {
-        modalForm.toggle(option.display, moduleAPI.get(option.property))
+        modalForm.toggle(option.display, await moduleAPI.get(option.property))
     }
     modalForm.submitButton("Send");
     modalForm.show(player).then(res => {

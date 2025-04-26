@@ -1,8 +1,11 @@
+import { system } from "@minecraft/server";
 import { prismarineDb } from "../lib/prismarinedb";
 
 class Shop {
     constructor() {
-        this.db = prismarineDb.table('+BLSM:shop')
+        system.run(() => {
+            this.db = prismarineDb.table('+BLSM:shop')
+        })
     }
     addCategory(name, currency, description, icon) {
         if(this.db.findFirst({name, type:'Category'})) return false;

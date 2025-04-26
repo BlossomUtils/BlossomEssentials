@@ -3,10 +3,12 @@ import * as mc from "@minecraft/server"
 
 class ranks {
     constructor() {
-        this.db = prismarineDb.table("ranks")
-        this.defaultRank = mc.world.getDynamicProperty("defaultRank")
-        this.defaultNameColor = mc.world.getDynamicProperty("defaultNameColor")
-        this.defaultChatColor = mc.world.getDynamicProperty("defaultChatColor")
+        mc.system.run(() => {
+            this.db = prismarineDb.table("ranks")
+            this.defaultRank = mc.world.getDynamicProperty("defaultRank")
+            this.defaultNameColor = mc.world.getDynamicProperty("defaultNameColor")
+            this.defaultChatColor = mc.world.getDynamicProperty("defaultChatColor")
+        })
     }
     getAll() {
         return this.db.findDocuments({})
@@ -26,11 +28,11 @@ class ranks {
         return ranks;
     }
     getFromTag(tag) {
-        return this.db.findFirst({tag})
+        return this.db.findFirst({ tag })
     }
     create(tag, display, nameColor, chatColor) {
         let doc = this.getFromTag(tag)
-        if(doc) return false;
+        if (doc) return false;
         this.db.insertDocument({
             tag,
             display,
@@ -41,13 +43,13 @@ class ranks {
     }
     remove(tag) {
         let doc = this.getFromTag(tag)
-        if(!doc) return false;
+        if (!doc) return false;
         this.db.deleteDocumentByID(doc.id)
         return true;
     }
     edit(tag, display, nc, cc) {
         let doc = this.getFromTag(tag)
-        if(!doc) return false;
+        if (!doc) return false;
         doc.data.display = display
         doc.data.nameColor = nc
         doc.data.chatColor = cc

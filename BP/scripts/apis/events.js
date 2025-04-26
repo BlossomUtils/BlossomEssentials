@@ -1,22 +1,24 @@
-import { world } from "@minecraft/server";
+import { system, world } from "@minecraft/server";
 import { prismarineDb } from "../lib/prismarinedb";
 import actionParser from "./actionParser";
 
 class Events {
     constructor() {
-        this.db = prismarineDb.table('+BLSM:Events')
-        world.afterEvents.entityDie.subscribe((e) => {
-            if (e.damageSource.damagingEntity.typeId != 'minecraft:player' || e.deadEntity.typeId != 'minecraft:player') return;
-            for (const ev of this.getAll()) {
-                if (ev.data.type == 'kill') {
-                    for (const a of ev.data.killedActions) {
-                        actionParser.runAction(e.deadEntity, a)
-                    }
-                    for (const a of ev.data.killerActions) {
-                        actionParser.runAction(e.damageSource.damagingEntity, a)
+        system.run(() => {
+            this.db = prismarineDb.table('+BLSM:Events')
+            world.afterEvents.entityDie.subscribe((e) => {
+                if (e.damageSource.damagingEntity.typeId != 'minecraft:player' || e.deadEntity.typeId != 'minecraft:player') return;
+                for (const ev of this.getAll()) {
+                    if (ev.data.type == 'kill') {
+                        for (const a of ev.data.killedActions) {
+                            actionParser.runAction(e.deadEntity, a)
+                        }
+                        for (const a of ev.data.killerActions) {
+                            actionParser.runAction(e.damageSource.damagingEntity, a)
+                        }
                     }
                 }
-            }
+            })
         })
     }
     create(display, type = 'kill') {

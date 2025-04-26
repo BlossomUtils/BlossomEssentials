@@ -1,10 +1,12 @@
 import { prismarineDb } from "../lib/prismarinedb";
 import * as blossom from '../functions'
-import { Container, EntityInventoryComponent, ItemComponent, ItemStack } from "@minecraft/server";
+import { Container, EntityInventoryComponent, ItemComponent, ItemStack, system } from "@minecraft/server";
 
 class Sell {
     constructor() {
-        this.db = prismarineDb.table('+BLSM:sell')
+        system.run(() => {
+            this.db = prismarineDb.table('+BLSM:sell')
+        })
     }
     addCategory(name,currency,description,requiredTag=null) {
         if(this.db.findFirst({name,type:'Category'})) return false;

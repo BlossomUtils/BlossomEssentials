@@ -12,7 +12,6 @@ import * as mc from "@minecraft/server"
 */
 class playerAPI {
     constructor() {
-        this.db = prismarineDb.table("playerAPI")
     }
     verify(name) {
         let verified;

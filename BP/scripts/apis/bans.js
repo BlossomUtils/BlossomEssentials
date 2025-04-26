@@ -1,10 +1,12 @@
-import { world } from "@minecraft/server";
+import { system, world } from "@minecraft/server";
 import { prismarineDb } from "../lib/prismarinedb";
 import playerStorage from "./playerStorage";
 
 class Bans {
     constructor() {
-        this.db = prismarineDb.table('Bans')
+        system.run(() => {
+            this.db = prismarineDb.table('Bans')
+        })
     }
 
     getAll() {

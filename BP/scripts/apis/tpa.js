@@ -3,11 +3,14 @@ import { MessageFormData } from "@minecraft/server-ui";
 import playerAPI from "./playerAPI";
 import modules from "./modules";
 import commandManager from "../lib/commands/commandManager";
-import { world } from "@minecraft/server";
+import { system, world } from "@minecraft/server";
 
 class tpaAPI {
     constructor() {
-        this.db = prismarineDb.nonPersistentTable("tpa")
+        system.run(() => {
+            this.db = prismarineDb.nonPersistentTable("tpa")
+
+        })
     }
     request(plr, toname) {
         let toplr = playerAPI.verify(toname)

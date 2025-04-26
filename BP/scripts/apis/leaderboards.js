@@ -3,10 +3,12 @@ import { prismarineDb } from "../lib/prismarinedb";
 
 class Leaderboards {
     constructor() {
-        this.db = prismarineDb.table('+BLSM:Leaderboards')
-        system.runInterval(() => {
-            this.updateLeaderboards()
-        }, 30)
+        system.run(() => {
+            this.db = prismarineDb.table('+BLSM:Leaderboards')
+            system.runInterval(() => {
+                this.updateLeaderboards()
+            }, 30)
+        })
     }
     add(scoreboard, dimension) {
         if(this.db.findFirst({scoreboard})) return;

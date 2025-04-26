@@ -2,13 +2,16 @@ import tabManager from './tabbedUI'
 import uiBuilder from './UIBuilderV2'
 import { prismarineDb } from '../lib/prismarinedb'
 import { array_move } from './utils/array_move'
+import { system } from '@minecraft/server'
 
 class tabbedUIBuilder {
     constructor() {
-        this.db = prismarineDb.table('TabbedUIs')
-        for(const doc of this.db.findDocuments()) {
-            tabManager.create(`${doc.data.id}`)
-        }
+        system.run(() => {
+            this.db = prismarineDb.table('TabbedUIs')
+            for(const doc of this.db.findDocuments()) {
+                tabManager.create(`${doc.data.id}`)
+            }
+        })
     }
     create(id) {
         if(this.db.findFirst({id})) return false;

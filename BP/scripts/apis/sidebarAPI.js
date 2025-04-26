@@ -1,4 +1,4 @@
-import { Player, world } from "@minecraft/server";
+import { Player, world,system } from "@minecraft/server";
 import { prismarineDb } from "../lib/prismarinedb";
 import lines from "./linesAPI";
 import { array_move } from "./utils/array_move";
@@ -22,7 +22,9 @@ const generateUUID = () => {
 
 class sidebarAPI {
     constructor() {
-        this.db = prismarineDb.table("sidebar")
+        system.run(() => {
+            this.db = prismarineDb.table("sidebar")
+        })
     }
     getSidebarNamefromPlayer(player) {
         if (!(player instanceof Player)) {
@@ -75,13 +77,11 @@ class sidebarAPI {
             name,
             lines: []
         })
-        lines.reload()
     }
     deleteSidebar(name) {
         let doc = this.db.findFirst({ name })
         if (!doc) throw new Error("No sidebar found");
         this.db.deleteDocumentByID(doc.id)
-        lines.reload()
     }
     reload() {
         this.db = prismarineDb.table("sidebar")

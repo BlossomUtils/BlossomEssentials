@@ -6,8 +6,10 @@ import { SegmentedStoragePrismarine } from '../prismarineDbStorages/segmented'
 
 class shopAPI {
     constructor() {
-        this.money = mc.world.getDynamicProperty("simple:money")
-        this.db = prismarineDb.customStorage("simple:shop", SegmentedStoragePrismarine)
+        mc.system.run(() => {
+            this.money = mc.world.getDynamicProperty("simple:money")
+            this.db = prismarineDb.customStorage("simple:shop", SegmentedStoragePrismarine)
+        })
     }
     addItem(typeId, price, display, admin) {
         let itemIds = this.db.findFirst({ itemID: typeId, display })
@@ -39,43 +41,43 @@ class shopAPI {
         return this.db.findDocuments()
     }
     fetchItem(typeId) {
-        if (!this.db.findFirst({itemID: typeId})) return false;
-        return this.db.findFirst({itemID: typeId})
+        if (!this.db.findFirst({ itemID: typeId })) return false;
+        return this.db.findFirst({ itemID: typeId })
     }
     buyItem(typeId, player, quantity) {
         try {
-        console.log("test")
-        let item = this.fetchItem(typeId)
-    
-        if (!item) throw new Error("Item not found");
-        let price = item.data.price * quantity 
-        if (!this.money) {
-            mc.world.setDynamicProperty("simple:money", "money")
-            this.money = mc.world.getDynamicProperty("simple:money")
-        }
-        let money = mc.world.scoreboard.getObjective(`${this.money}`)
+            console.log("test")
+            let item = this.fetchItem(typeId)
 
-        if(!money) {
-            money = mc.world.scoreboard.addObjective(`${this.money}`, "Money");
+            if (!item) throw new Error("Item not found");
+            let price = item.data.price * quantity
+            if (!this.money) {
+                mc.world.setDynamicProperty("simple:money", "money")
+                this.money = mc.world.getDynamicProperty("simple:money")
+            }
+            let money = mc.world.scoreboard.getObjective(`${this.money}`)
+
+            if (!money) {
+                money = mc.world.scoreboard.addObjective(`${this.money}`, "Money");
+            }
+            console.log("test2")
+            let getScore = money.getScore(player);
+            if (!getScore) money.addScore(player, 0);
+            if (money.getScore(player) > price) {
+                money.addScore(player, -price)
+                simple.commandFeedback("off")
+                player.runCommandAsync(`give @s ${typeId} ${quantity}`)
+                simple.commandFeedback("on")
+                console.log("test3")
+                player.success(`Successfully bought item from shop ${item.data.display}`)
+            } else {
+                throw new Error("Insufficent funds")
+                console.log("test4")
+            }
+        } catch (err) {
+            player.error(err.message)
         }
-        console.log("test2")
-        let getScore = money.getScore(player);
-        if(!getScore) money.addScore(player, 0);
-        if (money.getScore(player) > price) {
-            money.addScore(player, -price)
-            simple.commandFeedback("off")
-            player.runCommandAsync(`give @s ${typeId} ${quantity}`)
-            simple.commandFeedback("on")
-            console.log("test3")
-            player.success(`Successfully bought item from shop ${item.data.display}`)
-        } else {
-            throw new Error("Insufficent funds")
-            console.log("test4")
-        }
-    } catch (err) {
-        player.error(err.message)
     }
-}
     updateMoneyObjective() {
         this.money = mc.world.getDynamicProperty("simple:money")
     }

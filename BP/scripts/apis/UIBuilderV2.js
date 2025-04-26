@@ -15,16 +15,18 @@ import V2Opener from "./openers/V2Opener";
 */
 class UIBuilderV2 {
     constructor() {
-        this.db = prismarineDb.table("UIBuilderV2")
-        this.migrateOldActions();
-        system.afterEvents.scriptEventReceive.subscribe((e)=>{
-            if(e.id === config.details.openV2CustomUI) {
-                let ui = this.db.findFirst({scriptevent: e.message});
-                if(ui) {
-                    V2Opener.open(ui.data, e.sourceEntity)
-                    e.sourceEntity.runCommandAsync(`scriptevent blossom:CustomuiOpened ${e.sourceEntity.name} opened the UI "${e.message}"`)
+        system.run(() => {
+            this.db = prismarineDb.table("UIBuilderV2")
+            this.migrateOldActions();
+            system.afterEvents.scriptEventReceive.subscribe((e)=>{
+                if(e.id === config.details.openV2CustomUI) {
+                    let ui = this.db.findFirst({scriptevent: e.message});
+                    if(ui) {
+                        V2Opener.open(ui.data, e.sourceEntity)
+                        e.sourceEntity.runCommand(`scriptevent blossom:CustomuiOpened ${e.sourceEntity.name} opened the UI "${e.message}"`)
+                    }
                 }
-            }
+            })
         })
     }
     migrateOldActions() {

@@ -1,12 +1,14 @@
-import { world } from '@minecraft/server';
+import { system, world } from '@minecraft/server';
 import { prismarineDb } from '../lib/prismarinedb'
 import playerStorage from './playerStorage';
 
 class clanAPI {
     constructor() {
-        this.db = prismarineDb.table('clans')
-        this.inviteDb = prismarineDb.table('clans_inviteDb')
-        this.migrate()
+        system.run(() => {
+            this.db = prismarineDb.table('clans')
+            this.inviteDb = prismarineDb.table('clans_inviteDb')
+            this.migrate()
+        })
     }
     migrate() {
         for (const doc of this.db.findDocuments()) {

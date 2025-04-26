@@ -3,8 +3,10 @@ import * as mc from "@minecraft/server"
 
 class homeAPI {
     constructor() {
-        this.db = prismarineDb.table("homes")
-        this.migrateHomes();
+        mc.system.run(() => {
+            this.db = prismarineDb.table("homes")
+            this.migrateHomes();
+        })
     }
     findByName(name, player) {
         return this.db.findFirst({name, PlayerName: player})

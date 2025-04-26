@@ -1,5 +1,4 @@
 import './config/root'
-import './uiBuilderLegacy/index'
 import './basic/index'
 import './warps/index'
 import './homes/index'

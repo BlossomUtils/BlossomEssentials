@@ -193,8 +193,8 @@ export default {
         }
     },
     info: {
-        version: "0.1.8.3",
-        versionNumeric: [0, 1, 8, 3],
+        version: "0.1.8.4",
+        versionNumeric: [0, 1, 8, 4],
         name: "Blossom Essentials",
         authors: [
             { name: "FruitKitty", icon: "icons/FruitKitty.png", description: "Made the addon" },

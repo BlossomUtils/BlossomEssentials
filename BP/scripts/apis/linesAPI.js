@@ -1,3 +1,4 @@
+import { system } from "@minecraft/server";
 import { prismarineDb } from "../lib/prismarinedb";
 import { sidebar } from "./sidebarAPI";
 import { array_move } from "./utils/array_move";
@@ -32,7 +33,9 @@ const generateUUID = () => {
 
 class sidebarLines {
     constructor() {
-        this.db = prismarineDb.table("sidebar")
+        system.run(() => {
+            this.db = prismarineDb.table("sidebar")
+        })
     }
     getLine(id, sidebarID) {
         let sd = sidebar.getSidebar(sidebarID)
@@ -50,8 +53,7 @@ class sidebarLines {
             id,
             updatedAt: Date.now()
         })
-        this.db.overwriteDataByID(sd.id, sd.data)
-        sidebar.reload()
+        sidebar.db.overwriteDataByID(sd.id, sd.data)
         return id
     }
     editLine(id, text, sidebarID) {
@@ -64,14 +66,12 @@ class sidebarLines {
             updatedAt: Date.now()
         }
         sidebar.db.overwriteDataByID(sd.id, sd.data)
-        sidebar.reload()
     }
     removeLine(id, sdid) {
         let doc = sidebar.getSidebar(sdid)
         if (!doc) return;
         doc.data.lines = doc.data.lines.filter(_ => _.id != id);
         sidebar.db.overwriteDataByID(sdid, doc.data)
-        sidebar.reload()
     }
     getLines(sidebarID) {
         let doc = sidebar.getSidebar(sidebarID)
@@ -79,28 +79,26 @@ class sidebarLines {
         return doc.data.lines
     }
     moveLineDown(name, id) {
-        let doc = this.db.findFirst({
+        let doc = sidebar.db.findFirst({
             name
         })
-        if(!doc) return;
-        let index = doc.data.lines.findIndex(_=>_.id == id);
-        if(index + 1 >= doc.data.lines.length) return;
+        if (!doc) return;
+        let index = doc.data.lines.findIndex(_ => _.id == id);
+        if (index + 1 >= doc.data.lines.length) return;
         array_move(doc.data.lines, index, index + 1);
-        this.db.overwriteDataByID(doc.id, doc.data);
-        sidebar.reload()
+        sidebar.db.overwriteDataByID(doc.id, doc.data);
     }
     moveLineUp(name, id) {
-        let doc = this.db.findFirst({
+        let doc = sidebar.db.findFirst({
             name: name
         })
-        if(!doc) return;
-        let index = doc.data.lines.findIndex(_=>_.id == id);
-        if(index < 1) return;
-        
+        if (!doc) return;
+        let index = doc.data.lines.findIndex(_ => _.id == id);
+        if (index < 1) return;
+
         array_move(doc.data.lines, index, index - 1);
 
-        this.db.overwriteDataByID(doc.id, doc.data);
-        sidebar.reload()
+        sidebar.db.overwriteDataByID(doc.id, doc.data);
     }
 }
 

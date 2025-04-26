@@ -4,11 +4,13 @@ import modules from "./modules";
 
 class platformAPI {
     constructor() {
-        this.platforms = [ "console", "mobile", "desktop" ]
-        this.db = prismarineDb.table("platformwhitelistDb")
-        for (const plf of this.platforms) {
-            if(!modules.gdp(`is${plf}banned`)) modules.sdp(`is${plf}banned`, false)
-        }
+        mc.system.run(() => {
+            this.platforms = [ "console", "mobile", "desktop" ]
+            this.db = prismarineDb.table("platformwhitelistDb")
+            for (const plf of this.platforms) {
+                if(!modules.gdp(`is${plf}banned`)) modules.sdp(`is${plf}banned`, false)
+            }
+        })
     }
     checkPlatform(player) {
         return player.clientSystemInfo.platformType.toLowerCase();

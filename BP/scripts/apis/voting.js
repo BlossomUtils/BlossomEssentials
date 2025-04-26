@@ -1,8 +1,11 @@
+import { system } from "@minecraft/server";
 import { prismarineDb } from "../lib/prismarinedb";
 
 class Voting {
     constructor() {
-        this.db = prismarineDb.table('+BLSM:Voting')
+        system.run(() => {
+            this.db = prismarineDb.table('+BLSM:Voting')
+        })
     }
     start(title,body,icon=null) {
         if(this.db.findFirst({title})) return false;

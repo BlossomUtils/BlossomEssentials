@@ -1434,7 +1434,7 @@ var underscore_default = _;
 var nonPersistentData = {};
 var NonPersistentStorage = class {
   load(table) {
-    return nonPersistentData[table] ? nonPersistentData[table] : [];
+    return nonPersistentData[table] ? nonPersistentData[table] : null;
   }
   save(table, data) {
     nonPersistentData[table] = data;
@@ -1495,7 +1495,10 @@ var WorldPersistentStorage = class {
     return data;
   }
   save(table, data) {
-    world2.setDynamicProperty(`prismarine:${table}`, JSON.stringify(data));
+    system.run(()=>{
+      world2.setDynamicProperty(`prismarine:${table}`, JSON.stringify(data));
+
+    })
   }
 };
 
@@ -1523,7 +1526,9 @@ var EntityPersistentStorage = class {
     return data;
   }
   save(table, data) {
-    __privateGet(this, _entity).setDynamicProperty(`prismarine:${table}`, JSON.stringify(data));
+    system.run(()=>{
+      __privateGet(this, _entity).setDynamicProperty(`prismarine:${table}`, JSON.stringify(data));
+    })
   }
 };
 _entity = new WeakMap();
@@ -1535,15 +1540,18 @@ var Economy = class {
   constructor(table) {
     __privateAdd(this, _table);
     __privateSet(this, _table, table);
-    if (!__privateGet(this, _table).findFirst({ type: "CURRENCY", default: true })) {
-      __privateGet(this, _table).insertDocument({
-        default: true,
-        symbol: "$",
-        type: "CURRENCY",
-        scoreboard: "money",
-        displayName: "Coins"
-      });
-    }
+    __privateGet(this, _table).waitLoad().then(()=>{
+      if (!__privateGet(this, _table).findFirst({ type: "CURRENCY", default: true })) {
+        __privateGet(this, _table).insertDocument({
+          default: true,
+          symbol: "$",
+          type: "CURRENCY",
+          scoreboard: "money",
+          displayName: "Coins"
+        });
+      }
+  
+    })
   }
   getCurrencies() {
     let array = [];
@@ -1641,7 +1649,6 @@ import { ActionFormData } from "@minecraft/server-ui";
 var ActionForm = class {
   constructor() {
     __privateAdd(this, _form);
-    this.titleText = ""
     this.callbacks = [];
     __privateSet(this, _form, new ActionFormData());
   }
@@ -1657,13 +1664,8 @@ var ActionForm = class {
     __privateGet(this, _form).body(text);
   }
   show(player, responseFn) {
-    if (player.hasTag("light-mode")) {
-      const lightTitle = `§l§i§g§h§t§r§8${this.titleText.replace(/§r/g, "§r§8")}`;
-      const lightTitle2 = lightTitle.replace(/§f§u§l§l§s§c§r§e§e§n/g, "");
-      __privateGet(this, _form).title(lightTitle2);
-    }
     __privateGet(this, _form).show(player).then((res) => {
-      if (responseFn && typeof responseFn === "function") {
+      if (responseFn && typeof responseFn == "function") {
         responseFn(player, res);
       }
       if (res.canceled) return;
@@ -1671,7 +1673,7 @@ var ActionForm = class {
         this.callbacks[res.selection](player, res);
       }
     });
-  }  
+  }
 };
 _form = new WeakMap();
 
@@ -1764,6 +1766,7 @@ var generateUUID = () => {
     return (c == "x" ? r : r & 7 | 8).toString(16);
   });
 };
+export let databaseTables = [];
 var PrismarineDBTable = class {
   constructor(tableName = "default", storage) {
     __privateAdd(this, _PrismarineDBTable_instances);
@@ -1771,16 +1774,44 @@ var PrismarineDBTable = class {
     __privateSet(this, _storage, storage);
     this.table = tableName;
     this.data = [];
+    databaseTables.push((msg)=>{
+      this.globcmd(msg)
+    })
+    this.loaded = false;
     this.trash = [];
     this.folders = [];
-    this.load();
-    this.loadTrash();
-    this.loadFolders();
+    
+    // Load data immediately but don't wait for it
+    this.load().then(() => {
+      this.loadTrash();
+      this.loadFolders();
+    });
+    
     this.updateEvents = [];
   }
   trashAll() {
     for (const doc2 of this.data) {
       this.trashDocumentByID(doc2.id);
+    }
+  }
+  globcmd(msg) {
+    if(Array.isArray(msg)) {
+      // if(msg[0] == "SAVE") {
+        // if(this.lastSaveID != msg[1]) {
+          // this.loaded = false;
+          // this.load();
+        // }
+      // }
+    }
+    if(msg == "CLEAR") {
+      this.clear();
+    }
+    if(msg == "RELOAD") {
+      this.loaded = false;
+      this.load().then(() => {
+        this.loadTrash();
+        this.loadFolders();
+      });  
     }
   }
   runCommand(text) {
@@ -1790,35 +1821,86 @@ var PrismarineDBTable = class {
     }
   }
   loadFolders() {
-    this.folders = __privateGet(this, _storage).load(`${this.table}~folders`);
+    return new Promise((resolve) => {
+      system.run(() => {
+        this.folders = __privateGet(this, _storage).load(`${this.table}~folders`);
+        resolve(this.folders);
+      });
+    });
   }
   saveFolders() {
     __privateGet(this, _storage).save(`${this.table}~folders`, this.folders);
   }
   loadTrash() {
-    this.trash = __privateGet(this, _storage).load(`${this.table}~trash`);
+    return new Promise((resolve) => {
+      system.run(() => {
+        this.trash = __privateGet(this, _storage).load(`${this.table}~trash`);
+        resolve(this.trash);
+      });
+    });
   }
   saveTrash(trashedData = null) {
-    __privateGet(this, _storage).save(`${this.table}~trash`, this.trash);
-    try {
-      if (trashedData && __privateGet(this, _storage).trashable && __privateGet(this, _storage).name && stores[__privateGet(this, _storage).name]) {
-        let data = stores["WORLD_PERSISTENT"].load(`+PRISM:$TRASH`);
-        data.push({
-          store: __privateGet(this, _storage).name,
-          table: this.table,
-          data: trashedData
-        });
-        stores["WORLD_PERSISTENT"].save(`+PRISM:$TRASH`, data);
+    system.run(()=>{
+      __privateGet(this, _storage).save(`${this.table}~trash`, this.trash);
+      try {
+        if (trashedData && __privateGet(this, _storage).trashable && __privateGet(this, _storage).name && stores[__privateGet(this, _storage).name]) {
+          let data = stores["WORLD_PERSISTENT"].load(`+PRISM:$TRASH`);
+          data.push({
+            store: __privateGet(this, _storage).name,
+            table: this.table,
+            data: trashedData
+          });
+          stores["WORLD_PERSISTENT"].save(`+PRISM:$TRASH`, data);
+        }
+      } catch {
       }
-    } catch {
+  
+    })
+  }
+  setData(data) {
+    // system.run(()=>{
+      // world2.sendMessage(JSON.stringify(data))
+    // })
+    if(!data) {
+      this.loaded = true;
+      return;
     }
+    this.data = data ? data : [];
+    this.loaded = true;
   }
   load() {
-    this.data = __privateGet(this, _storage).load(this.table);
+    return new Promise((resolve) => {
+      let storage = __privateGet(this, _storage);
+      system.run(() => {
+        let data = storage.load(this.table);
+        this.setData(data);
+        resolve(data);
+      });
+    });
   }
   save() {
-    __privateGet(this, _storage).save(this.table, this.data);
-    __privateMethod(this, _PrismarineDBTable_instances, updateEvent_fn).call(this);
+    if(!this.loaded) return;
+    this.lastSaveID = Date.now();
+    return new Promise((resolve) => {
+      system.run(() => {
+        __privateGet(this, _storage).save(this.table, this.data);
+        __privateMethod(this, _PrismarineDBTable_instances, updateEvent_fn).call(this);
+        for(const table of databaseTables) {
+          table([`SAVE`, this.table, this.lastSaveID])
+        }
+        resolve();
+      });
+    });
+  }
+  async switchEnv(newTable) {
+    if(!newTable || typeof newTable !== "string") return false;
+    await this.save()
+    this.table = newTable;
+    this.loaded = false;
+    await this.load()
+    await this.loadFolders()
+    await this.loadTrash()
+    return true;
   }
   clear() {
     this.data = [];
@@ -1867,14 +1949,27 @@ var PrismarineDBTable = class {
   }
   insertDocument(data) {
     let id2 = __privateMethod(this, _PrismarineDBTable_instances, genID_fn).call(this);
+    let running = true;
+    while(running) {
+      if(!this.getByID(id2)) {
+        running = false;
+        break;
+      }
+      id2++;
+      running = false;
+      break;
+    }
     this.data.push({
       id: id2,
       data,
       createdAt: Date.now(),
       updatedAt: Date.now()
     });
-    this.save();
-    __privateMethod(this, _PrismarineDBTable_instances, invokeEvent_fn).call(this, "$insert", { id: id2, data, table: this.table, storage: __privateGet(this, _storage) });
+    // system.run(()=>{
+      this.save();
+
+    // })
+    // __privateMethod(this, _PrismarineDBTable_instances, invokeEvent_fn).call(this, "$insert", { id: id2, data, table: this.table, storage: __privateGet(this, _storage) });
     return id2;
   }
   overwriteDataByID(id2, data) {
@@ -1970,18 +2065,37 @@ var PrismarineDBTable = class {
     });
   }
   keyval(id2) {
-    let doc2 = this.findFirst({ __keyval_id: id2 });
-    let docID = null;
-    if (!doc2) {
-      docID = this.createKeyValDocument(id2);
-    } else {
-      docID = doc2.id;
-    }
-    return __privateMethod(this, _PrismarineDBTable_instances, keyval_fn).call(this, docID);
+    return new Promise((resolve, reject)=>{
+      let interval = system.runInterval(()=>{
+        if(!this.loaded) return;
+        let doc2 = this.findFirst({ __keyval_id: id2 });
+        let docID = null;
+        
+        if (!doc2) {
+          docID = this.createKeyValDocument(id2);
+        } else {
+          docID = doc2.id;
+        }
+        system.clearRun(interval)
+        resolve(__privateMethod(this, _PrismarineDBTable_instances, keyval_fn).call(this, docID));
+    
+      }, 1)
+    })
   }
+
+  waitLoad() {
+    return new Promise((resolve, reject)=>{
+      let interval = system.runInterval(()=>{
+        if(!this.loaded) return;
+        system.clearRun(interval)
+        resolve(true);    
+      }, 1)
+    })
+  }
+    
   trashDocumentByID(id2) {
-    this.loadTrash();
-    this.load();
+    // this.loadTrash();
+    // this.load();
     let data = this.getByID(id2);
     if (data) {
       let newData = JSON.parse(JSON.stringify(data));
@@ -1993,8 +2107,8 @@ var PrismarineDBTable = class {
     }
   }
   getTrashedDocumentByID(id2) {
-    this.loadTrash();
-    this.load();
+    // this.loadTrash();
+    // this.load();
     let docIndex2 = this.trash.findIndex((document) => document.id == id2);
     if (docIndex2 < 0) return null;
     return this.trash[docIndex2];
@@ -2029,7 +2143,16 @@ var PrismarineDBTable = class {
 _storage = new WeakMap();
 _PrismarineDBTable_instances = new WeakSet();
 genID_fn = function () {
-  return Date.now();
+    // Current timestamp (in milliseconds)
+    const timestamp = Date.now();
+
+    // Random number to add more uniqueness (between 0 and 999)
+    const randomPart = Math.floor(Math.random() * 1000);
+
+    // Combine the timestamp and random part (shift the random part for uniqueness)
+    const uniqueId = timestamp * 1000 + randomPart;
+
+    return uniqueId;
 };
 invokeEvent_fn = function (...args) {
   for (const namespace in eventHandlers) {
@@ -2040,15 +2163,18 @@ invokeEvent_fn = function (...args) {
 };
 keyval_fn = function (id2) {
   const get2 = (key, defaultValue = null) => {
-    // this.load();
+    if(!this.loaded) return defaultValue ?? "";
     let doc2 = this.getByID(id2);
+    if (!doc2) return defaultValue ?? null;
     let val = doc2.data.__keyval_data[key] ? doc2.data.__keyval_data[key].data : null;
     if (defaultValue != null && !val) return defaultValue;
     return val;
   };
+
   const set = (key, val) => {
-    // this.load();
+    if(!this.loaded) return;
     let doc2 = this.getByID(id2);
+    if (!doc2) return;
     let currentValue = doc2.data.__keyval_data[key] ? doc2.data.__keyval_data[key].data : null;
     let newValue = {};
     if (currentValue && currentValue.createdAt) {
@@ -2061,13 +2187,15 @@ keyval_fn = function (id2) {
     doc2.data.__keyval_data[key] = newValue;
     this.overwriteDataByID(doc2.id, doc2.data);
   };
+
   const del = (key) => {
-    // this.load();
+    if(!this.loaded) return;
     let doc2 = this.getByID(id2);
     if (doc2.data.__keyval_data[key]) delete doc2.data.__keyval_data[key];
   };
+
   const has2 = (key) => {
-    // this.load();
+    if(!this.loaded) return false;
     let doc2 = this.getByID(id2);
     if (doc2.data.__keyval_data.hasOwnProperty(key)) {
       return true;
@@ -2075,11 +2203,13 @@ keyval_fn = function (id2) {
       return false;
     }
   };
+
   const keys2 = (key) => {
-    // this.load();
+    if(!this.loaded) return []
     let doc2 = this.getByID(id2);
     return Object.keys(doc2.data.__keyval_data);
   };
+
   return { get: get2, set, delete: del, has: has2, keys: keys2 };
 };
 updateEvent_fn = function () {
@@ -2278,7 +2408,10 @@ var PositionalDB = class {
       }
       if (!data || data == {}) data = {};
       data[key] = val;
-      world4.setDynamicProperty(`prismarine_positionaldb_${__privateGet(this, _table2)}:${vec3toString(obj)}`, JSON.stringify(data));
+      system.run(()=>{
+        world4.setDynamicProperty(`prismarine_positionaldb_${__privateGet(this, _table2)}:${vec3toString(obj)}`, JSON.stringify(data));
+
+      })
     };
     let deleteValue = (key) => {
       let data = {};
@@ -2289,7 +2422,10 @@ var PositionalDB = class {
       }
       if (!data || data == {}) data = {};
       if (data.hasOwnProperty(key)) delete data[key];
-      world4.setDynamicProperty(`prismarine_positionaldb_${__privateGet(this, _table2)}:${vec3toString(obj)}`, JSON.stringify(data));
+      system.run(()=>{
+        world4.setDynamicProperty(`prismarine_positionaldb_${__privateGet(this, _table2)}:${vec3toString(obj)}`, JSON.stringify(data));
+
+      })
     };
     let has2 = (key) => {
       let data = {};
@@ -2310,28 +2446,31 @@ var PermissionSystem = class {
     __privateAdd(this, _db);
     __privateAdd(this, _defaultPermissions);
     __privateSet(this, _db, new PrismarineDBTable("+PRISM:perms", new WorldPersistentStorage()));
-    if (!__privateGet(this, _db).findFirst({ type: "ROLE", default: true })) {
-      __privateGet(this, _db).insertDocument({
-        type: "ROLE",
-        default: true,
-        defaultAdmin: false,
-        isAdmin: false,
-        permissions: [],
-        edited: false,
-        tag: "default"
-      });
-    }
-    if (!__privateGet(this, _db).findFirst({ type: "ROLE", defaultAdmin: true })) {
-      __privateGet(this, _db).insertDocument({
-        type: "ROLE",
-        default: false,
-        defaultAdmin: true,
-        isAdmin: true,
-        permissions: [],
-        edited: false,
-        tag: "admin"
-      });
-    }
+    __privateGet(this, _db).waitLoad().then(res=>{
+      if (!__privateGet(this, _db).findFirst({ type: "ROLE", default: true })) {
+        __privateGet(this, _db).insertDocument({
+          type: "ROLE",
+          default: true,
+          defaultAdmin: false,
+          isAdmin: false,
+          permissions: [],
+          edited: false,
+          tag: "default"
+        });
+      }
+      if (!__privateGet(this, _db).findFirst({ type: "ROLE", defaultAdmin: true })) {
+        __privateGet(this, _db).insertDocument({
+          type: "ROLE",
+          default: false,
+          defaultAdmin: true,
+          isAdmin: true,
+          permissions: [],
+          edited: false,
+          tag: "admin"
+        });
+      }
+  
+    })
     __privateSet(this, _defaultPermissions, []);
   }
   setDefaultPermissions(newDefaultPerms) {
@@ -2458,15 +2597,20 @@ var PrismarineDB = class {
     this.economy = new Economy(__privateGet(this, _reservedEconomyTable));
     this.config = this.keyval("conf");
   }
+  sendToAllTables(msg) {
+    for(const table of databaseTables) {
+      table(msg)
+    }
+  }
   /**
    * 
    * @param {*} name 
-   * @returns {KeyValTemplate}
+   * @returns {Promise<KeyValTemplate>}
    */
-  keyval(name) {
+  async keyval(name) {
     if (name.startsWith("+PRISM:")) throw new Error("Keyval names starting with '+PRISM:' are reserved");
     if (__privateGet(this, _reservedKeyVals)[name]) return __privateGet(this, _reservedKeyVals)[name];
-    __privateGet(this, _reservedKeyVals)[name] = __privateGet(this, _reservedTable).keyval(name);
+    __privateGet(this, _reservedKeyVals)[name] = await __privateGet(this, _reservedTable).keyval(name);
     return __privateGet(this, _reservedKeyVals)[name];
   }
   table(name) {
@@ -2745,33 +2889,33 @@ var ColorAPI = class {
   }
   getColorCodes() {
     return [
-      "\xA70",
-      "\xA71",
-      "\xA72",
-      "\xA73",
-      "\xA74",
-      "\xA75",
-      "\xA76",
-      "\xA77",
-      "\xA78",
-      "\xA79",
-      "\xA7a",
-      "\xA7b",
-      "\xA7c",
-      "\xA7d",
-      "\xA7e",
-      "\xA7f",
-      "\xA7g",
-      "\xA7h",
-      "\xA7i",
-      "\xA7j",
-      "\xA7m",
-      "\xA7n",
-      "\xA7p",
-      "\xA7q",
-      "\xA7s",
-      "\xA7t",
-      "\xA7u"
+      "§0",
+      "§1",
+      "§2",
+      "§3",
+      "§4",
+      "§5",
+      "§6",
+      "§7",
+      "§8",
+      "§9",
+      "§a",
+      "§b",
+      "§c",
+      "§d",
+      "§e",
+      "§f",
+      "§g",
+      "§h",
+      "§i",
+      "§j",
+      "§m",
+      "§n",
+      "§p",
+      "§q",
+      "§s",
+      "§t",
+      "§u"
     ];
   }
   getColorNames() {

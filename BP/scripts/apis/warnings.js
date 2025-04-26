@@ -1,8 +1,11 @@
+import { system } from '@minecraft/server';
 import { prismarineDb } from '../lib/prismarinedb'
 
 class Warnings {
     constructor() {
-        this.db = prismarineDb.table('warnings')
+        system.run(() => {
+            this.db = prismarineDb.table('warnings')
+        })
     }
     add(name, reason, admin) {
         let w = this.db.findFirst({reason, admin: admin.name})

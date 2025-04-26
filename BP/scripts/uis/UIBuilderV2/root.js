@@ -9,13 +9,7 @@ import tabbedUIBuilder from "../../apis/tabbedUIBuilder";
 
 let tabbedUI = tabManager.create('+BLSM:uiBuilderV2')
 tabbedUI.registerTab('\uE180 UIs', (player) => {
-    const buttons = [{
-        text: '§cLegacy Forms\n§7Use legacy forms',
-        iconPath: 'textures/azalea_icons/FormsV2.png',
-        callback: (player) => {
-            uiManager.open(player, config.uiNames.UIBuilder.Root)
-        }
-    }]
+    const buttons = []
     buttons.push({
         text: '§aAdd UI\n§7Add a UI',
         iconPath: 'textures/azalea_icons/1.png',

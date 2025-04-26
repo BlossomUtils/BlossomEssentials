@@ -1,8 +1,11 @@
+import { system } from "@minecraft/server";
 import { prismarineDb } from "../lib/prismarinedb";
 
 class Reports {
     constructor() {
-        this.db = prismarineDb.table('Reports')
+        system.run(() => {
+            this.db = prismarineDb.table('Reports')
+        })
     }
 
     create(player, title, type, body) {

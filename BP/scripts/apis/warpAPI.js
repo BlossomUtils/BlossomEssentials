@@ -3,8 +3,10 @@ import { prismarineDb } from '../lib/prismarinedb'
 
 class warpAPI {
     constructor() {
-        this.db = prismarineDb.table("warps")
-        this.migrate();
+        mc.system.run(() => {
+            this.db = prismarineDb.table("warps")
+            this.migrate();
+        })
     }
     getAll() {
         return this.db.findDocuments()

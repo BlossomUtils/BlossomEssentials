@@ -13,7 +13,6 @@ uiManager.addUI(config.uiNames.CustomCommands.Remove, "Custom Commands root", (p
     for (const cmd of cmds) {
         form.button(`§d${cmd.data.name}\n§7[ Remove Command ]`, "textures/azalea_icons/Settings.png", (player)=>{
             customCommands.remove(cmd.id)
-            player.info("Changing the name or removing a command requires a reload which you can do in Worlds or Bedrock Dedicated Server. If you are on realms, restart the realm.")
         })
     }
 
